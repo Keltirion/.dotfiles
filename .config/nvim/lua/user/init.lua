@@ -1,0 +1,1 @@
+/home/lech@dtmates.com/personal/dotfiles/.config/nvim/lua/user/init.lua
