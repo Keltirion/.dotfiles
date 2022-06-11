@@ -16,10 +16,6 @@ ZSH_THEME="robbyrussell"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-eval (ssh-agent) > /dev/null
-
-ssh-add $HOME/.ssh/certs/* > /dev/null
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -74,7 +70,11 @@ ssh-add $HOME/.ssh/certs/* > /dev/null
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux)
+plugins=(git tmux sudo ssh-agent zsh-autosuggestions)
+
+# ssh-agent config
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
 
 source $ZSH/oh-my-zsh.sh
 
