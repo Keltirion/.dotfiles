@@ -72,9 +72,15 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git tmux sudo ssh-agent zsh-autosuggestions)
 
+ZSH_TMUX_AUTOSTART=true
+
 # ssh-agent config
-zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
+if ls -1qA $HOME/.ssh/certs/ | grep -q .; then 
+
+else 
+  #zstyle :omz:plugins:ssh-agent agent-forwarding yes
+  #zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias v="nvim"
-alias vim="nvim"
 alias lg="lazygit"
 
 eval "$(starship init zsh)"
