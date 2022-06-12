@@ -75,12 +75,9 @@ plugins=(git tmux sudo ssh-agent zsh-autosuggestions)
 ZSH_TMUX_AUTOSTART=true
 
 # ssh-agent config
-if ls -1qA $HOME/.ssh/certs/ | grep -q .; then 
-
-else 
-  #zstyle :omz:plugins:ssh-agent agent-forwarding yes
-  #zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
-fi
+zstyle :omz:plugins:ssh-agent quiet yes
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
 
 source $ZSH/oh-my-zsh.sh
 
