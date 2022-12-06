@@ -78,10 +78,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 plugins=(git kubectl ssh-agent sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
 
 zstyle :omz:plugins:ssh-agent quiet yes
-
-for cert in $(find ~/.ssh/certs -type f); do
-  zstyle :omz:plugins:ssh-agent identities $cert
-done
+zstyle :omz:plugins:ssh-agent identities $(find ~/.ssh/certs -type f)
 
 # User configuration
 
