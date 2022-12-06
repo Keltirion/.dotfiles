@@ -1,14 +1,19 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin
+#If you come from bash you might have to change your $PATH.
+export PATH="$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/:/Users/lech/.local/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$HOME/Applications:$HOME/Library/Python/3.10/bin"
 
 # Path to your oh-my-zsh installation.
+
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="$PATH:/opt/homebrew/bin"
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="Starship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,16 +75,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux sudo ssh-agent zsh-autosuggestions)
+plugins=(git kubectl ssh-agent sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
 
-ZSH_TMUX_AUTOSTART=true
-
-# ssh-agent config
 zstyle :omz:plugins:ssh-agent quiet yes
-zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent identities ~/.ssh/certs/*
 
-source $ZSH/oh-my-zsh.sh
+for cert in $(find ~/.ssh/certs -type f); do
+  zstyle :omz:plugins:ssh-agent identities $cert
+done
 
 # User configuration
 
@@ -106,7 +108,24 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias v="nvim"
+
+autoload bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
+source "${HOME}/.oh-my-zsh/completions/az"
+source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+
+alias tf="terraform"
+alias tg="terragrunt"
+alias k="kubectl"
+alias v="vim"
 alias lg="lazygit"
+alias ssk="kitty +kitten ssh"
+
+alias repo="du -a ~/Repositories/* | awk '{print $2}' | fzf | xargs -r code"
 
 eval "$(starship init zsh)"
+
+source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
