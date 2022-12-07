@@ -6,6 +6,7 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/:/Users/lech/
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:/opt/homebrew/bin"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+export ZSH_TMUX_AUTOSTART=true
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
@@ -75,7 +76,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git kubectl ssh-agent sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
+plugins=(git kubectl ssh-agent tmux sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
 
 zstyle :omz:plugins:ssh-agent quiet yes
 zstyle :omz:plugins:ssh-agent identities $(find ~/.ssh/certs -type f)
