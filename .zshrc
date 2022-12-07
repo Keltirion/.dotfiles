@@ -9,7 +9,7 @@
 #    - tmux
 #    - terraform
 #    - terragrunt
-export PATH="$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/:/Users/$USER/.local/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$HOME/Applications:$HOME/Library/Python/3.10/bin"
+export PATH="$PATH:/usr/local/bin:/Users/$USER/.local/bin"
 
 # Path to your oh-my-zsh installation.
 
