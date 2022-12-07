@@ -121,7 +121,7 @@ autoload bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
 source "${HOME}/.oh-my-zsh/completions/az"
-source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+source "${HOME}/.oh-my-zsh/completions/kubectl"
 
 alias tf="terraform"
 alias tg="terragrunt"
