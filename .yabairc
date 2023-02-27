@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+
+set -x
+
+# ====== Variables =============================
+
+yabai_config_dir="/Users/lech/.config/yabai"
+yabai_scripts_dir="/Users/lech/.config/yabai/scripts"
+
+declare -A gaps
+declare -A color
+
+gaps["top"]="5"
+gaps["bottom"]="5"
+gaps["left"]="5"
+gaps["right"]="5"
+gaps["inner"]="5"
+
+# ===== Loading Scripting Additions ============
+
+# See: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#macos-big-sur---automatically-load-scripting-addition-on-startup
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# ===== Mouse focus ============================
+
+yabai -m config mouse_follows_focus	    on
+yabai -m config focus_follows_mouse         on
+
+# ===== Layout settings ========================
+#yabai -m config --space 1 layout stack
+
+# ===== Configure displays =====================
+
+# ===== Configure spaces =======================
+
+display_configuration=$($yabai_scripts_dir/determine-setup.sh)
+
+/Users/lech/.config/yabai/scripts/create-space.sh -d 1 -l code -i 2
+/Users/lech/.config/yabai/scripts/create-space.sh -d 2 -l terminal -i 1
+/Users/lech/.config/yabai/scripts/create-space.sh -d 3 -l web -i 6
+/Users/lech/.config/yabai/scripts/create-space.sh -d 1 -l remote -i 3
+
+# ===== Tiling setting =========================
+
+yabai -m config layout                      bsp
+
+yabai -m config top_padding                 "${gaps["top"]}"
+yabai -m config bottom_padding              "${gaps["bottom"]}"
+yabai -m config left_padding                "${gaps["left"]}"
+yabai -m config right_padding               "${gaps["right"]}"
+yabai -m config window_gap                  "${gaps["inner"]}"
+
+yabai -m config window_topmost              off
+yabai -m config window_opacity              off
+yabai -m config window_shadow               off
+
+yabai -m config window_border               on
+yabai -m config window_border_radius        8
+yabai -m config window_border_width         3
+yabai -m config window_border_blur          off
+yabai -m config window_border_hidpi         on
+yabai -m config normal_window_border_color  0x0044475a
+# yabai -m config insert_feedback_color       "${color["preselect"]}"
+yabai -m config active_window_border_color  0xE0f1fa8c
+
+yabai -m config active_window_opacity       1.0
+yabai -m config normal_window_opacity       0.90
+yabai -m config split_ratio                 0.50
+
+yabai -m config auto_balance                off
+
+yabai -m config mouse_modifier              fn
+yabai -m config mouse_action1               move
+yabai -m config mouse_action2               resize
+
+# ===== Signals ================================
+
+yabai -m signal --add event=display_added action="$yabai_config_dir/scripts/find-display.sh 2993A42E-C636-44E0-BB08-8E73E6289270 tablet"
+yabai -m signal --add event=display_added action="$yabai_config_dir/scripts/find-display.sh BDB2B040-40C9-44BC-B304-47E680C2ED5C samsungtv"
+yabai -m signal --add event=display_removed action='launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+
+# ===== Signals for yabaiindicator
+
+yabai -m signal --add event=mission_control_exit action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=display_added action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=display_removed action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_created action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_destroyed action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_focused action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_moved action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+
+# ===== Rules ==================================
+
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="macfeh" app="^macfeh$" manage=off
+yabai -m rule --add label="System Settings" app="^System Settings$" title=".*" manage=off
+yabai -m rule --add label="App Store" app="^App Store$" manage=off
+yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
+yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
+yabai -m rule --add label="mpv" app="^mpv$" manage=off
+yabai -m rule --add label="Software Update" title="Software Update" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+yabai -m rule --add app="^AltTab$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
+yabai -m rule --add app="^Installer$" manage=off
+yabai -m rule --add app="^Barrier$" manage=off
+
+# ==== Space terminal
+# iTerm
+yabai -m rule --add app="iTerm2" space=terminal
+# Kitty
+yabai -m rule --add app="kitty" space=terminal
+ 
+# ==== Space web
+# layout
+yabai -m config --space code layout stack
+# VScode
+yabai -m rule --add app="Code" space=code
+
+# ==== Space remote
+# Royal TSX
+yabai -m rule --add app="Royal TSX" space=remote 
+
+# ==== Space web
+yabai -m config --space web layout stack
+# Brave
+yabai -m rule --add app="Brave Browser" space=web
+# Chrome
+yabai -m rule --add app="Google Chrome" space=web
+# Edge
+yabai -m rule --add app="Microsoft Edge" space=web
+# Firefox
+yabai -m rule --add app="Firefox" space=web
+
+# ==== Space comms
+# Slack
+yabai -m rule --add app="^Slack$" space=comms
+yabai -m rule --add app="^Slack$" title="screen share" space=8
+# MS Teams
+yabai -m rule --add app="^Microsoft Teams$" title="^Loading Microsoft Teams$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" title="Spotkanie na kanale" space=8
+yabai -m rule --add app="^Microsoft Teams$" space=comms
+#yabai -m rule --add app="^Microsoft Teams$" title="^Microsoft Teams$" manage=off
+
+# ==== Space mail
+# Outlook
+yabai -m rule --add app="^Microsoft Outlook$" space=mail
+yabai -m rule --add app="^Microsoft Outlook$" title="Preferences" manage=off
+
+# ==== Space 4
+# Royal TSX
+yabai -m rule --add app="Royal TSX" title="Munich Laptop" space=4
+yabai -m rule --add app="Parsec" space=4 manage=on
+
+# ==== Space 5
+# Citrix 
+yabai -m rule --add app="Citrix Viewer" title="MR Desktop" space=5 
+
+# ==== Space 8
+
+# ==== Space 7
+# Akiflow
+yabai -m rule --add app="^Akiflow$" space=7
+# Notion
+yabai -m rule --add app="^Notion$" space=7
+
+# == Fullscreen apps
+
+# == Other
+# Microsoft To Do
+yabai -m rule --add app="Microsoft To Do" manage=off sticky=on grid=6:8:2:1:4:4
+# Azure VPN grid=6:8:2:1:4:4
+yabai -m rule --add app="^Azure VPN Client" manage=off 
+# Alfred 
+yabai -m rule --add app="Alfred" manage=off border=off
+# Browserosaurus
+yabai -m rule --add app="Browserosaurus" manage=off border=off
+# Outlook
+yabai -m rule --add app="Microsoft Outlook" title=".* Reminders" manage=off sticky=on border=off
+# Finder
+yabai -m rule --add app="Finder" manage=off
+# Spotify
+yabai -m rule --add app="Spotify" manage=off sticky=on 
+# Battle.net
+yabai -m rule -add app="Battle.net" manage=off sticky=on  
+
+sleep 2
+
+for innndex in $(yabai -m query --spaces | jq '.[] | select(.label=="")' | jq .index)
+do
+    yabai -m space $innndex --destroy
+done
+
+set +x
+printf "yabai: configuration loaded...\\n"
+

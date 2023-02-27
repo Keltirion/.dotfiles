@@ -1,22 +1,26 @@
-#If you come from bash you might have to change your $PATH.
 # Apps:
 #    - azure-cli
 #    - kubectl
 #    - kubens & kubectx
 #    - fzf
+#    - tree
 #    - k9s
 #    - lazygit
 #    - tmux
 #    - terraform
 #    - terragrunt
+
+#If you come from bash you might have to change your $PATH.
+
 export PATH="$PATH:/usr/local/bin:/Users/$USER/.local/bin"
+export PATH="$PATH:/opt/homebrew/bin"
 
 # Path to your oh-my-zsh installation.
 
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="$PATH:/opt/homebrew/bin"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOCONNECT=false
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
