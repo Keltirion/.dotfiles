@@ -1,0 +1,7 @@
+require("plugins.telescope")
+require("plugins.treesitter")
+require("plugins.lsp")
+require("plugins.fugitive")
+require("plugins.whichkey")
+require("plugins.monokai")
+require("plugins.nvim-tree")

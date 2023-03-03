@@ -1,6 +1,8 @@
-require("lelon")
+require("config.options")
+require("config.keymaps")
+require("config.terminal")
 
-require("lelon.terminal")
-require("lelon.packer")
+require("config.plugins")
 
-require('monokai').setup { italics = false }
+require("plugins")
+

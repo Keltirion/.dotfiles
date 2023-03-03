@@ -22,9 +22,35 @@ wk.register({
     },
 }, { prefix = "<leader>" })
 
+-- Buffers
+wk.register({
+    b = {
+        name = "Buffers",
+        n = { "<cmd>bn<cr>", "Next buffer" },
+        p = { "<cmd>bp<cr>", "Previous buffer" },
+        q = { "<cmd>bw<cr>", "Close buffer" },
+        l = { "<cmd>Telescope buffers<cr>", "List buffers" },
+    },
+}, { prefix = "<leader>" })
+
+-- Explorer
+wk.register({
+    e = {
+        name = "Explorer",
+        e = { "<cmd>NvimTreeFocus<cr>", "Explore files" },
+        c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
+    },
+}, { prefix = "<leader>" })
+
 -- Other
 wk.register({
     w = { "<cmd>w<cr>", "Save file" },
     q = { "<cmd>w<cr>", "Close" },
     y = { [["+y]], "Copy to system clipboard" },
+    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment"},
 }, { prefix = "<leader>" })
+
+-- Other visual
+wk.register({
+    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment"},
+}, { prefix = "<leader>", mode = "v" })

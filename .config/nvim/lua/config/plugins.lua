@@ -1,19 +1,57 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
+end
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'tanvirtin/monokai.nvim'
     use 'mbbill/undotree'
     use 'theprimeagen/harpoon'
     use 'tpope/vim-fugitive'
+    use 'nvim-tree/nvim-web-devicons'
+
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+
+    use {
+        'terrortylor/nvim-comment',
+        config = function()
+            require('nvim_comment').setup({
+                comment_empty = false
+            })
+        end
+    }
+
+    use {
+        'lewis6991/gitsigns.nvim', tag = 'v0.6',
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
+
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
     }
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -49,4 +87,8 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' }, -- Optional
         }
     }
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
