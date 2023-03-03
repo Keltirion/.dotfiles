@@ -9,6 +9,19 @@ wk.register({
     },
 }, { prefix = "<leader>" })
 
+-- Main page
+wk.register({
+    w = { "<cmd>w<cr>", "Save file" },
+    q = { "<cmd>bd<cr>", "Close current buffer" },
+    y = { [["+y]], "Copy to system clipboard" },
+    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment" },
+}, { prefix = "<leader>" })
+
+-- Main page visual
+wk.register({
+    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment" },
+}, { prefix = "<leader>", mode = "v" })
+
 -- Harpoon
 wk.register({
     h = {
@@ -28,7 +41,7 @@ wk.register({
         name = "Buffers",
         n = { "<cmd>bn<cr>", "Next buffer" },
         p = { "<cmd>bp<cr>", "Previous buffer" },
-        q = { "<cmd>bw<cr>", "Close buffer" },
+        q = { "<cmd>bd<cr>", "Close buffer" },
         l = { "<cmd>Telescope buffers<cr>", "List buffers" },
     },
 }, { prefix = "<leader>" })
@@ -38,19 +51,31 @@ wk.register({
     e = {
         name = "Explorer",
         e = { "<cmd>NvimTreeFocus<cr>", "Explore files" },
+        q = { "<cmd>NvimTreeClose<cr>", "Close terminal" },
         c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
     },
 }, { prefix = "<leader>" })
 
--- Other
+-- Terminal
 wk.register({
-    w = { "<cmd>w<cr>", "Save file" },
-    q = { "<cmd>w<cr>", "Close" },
-    y = { [["+y]], "Copy to system clipboard" },
-    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment"},
+    t = {
+        name = "Terminal",
+        t = { "<cmd>terminal<cr>", "Start a new terminal" },
+        q = { "<cmd>bd!<cr>", "Close terminal" },
+    },
 }, { prefix = "<leader>" })
 
--- Other visual
+-- Git
 wk.register({
-    ["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment"},
-}, { prefix = "<leader>", mode = "v" })
+    g = {
+        name = "Git",
+        l = { "<cmd>LazyGitCurrentFile<cr>", "Start lazygit" },
+    },
+}, { prefix = "<leader>" })
+
+wk.register({
+    p = {
+        name = "Packer",
+        s = { "<cmd>PackerSync<cr>", "Packer sync" },
+    },
+}, { prefix = "<leader>" })

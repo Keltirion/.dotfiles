@@ -13,12 +13,13 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    use 'tanvirtin/monokai.nvim'
     use 'mbbill/undotree'
     use 'theprimeagen/harpoon'
     use 'tpope/vim-fugitive'
     use 'nvim-tree/nvim-web-devicons'
+    use 'kdheepak/lazygit.nvim'
 
+    use 'navarasu/onedark.nvim'
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
