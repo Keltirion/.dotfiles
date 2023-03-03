@@ -12,7 +12,7 @@
 
 #If you come from bash you might have to change your $PATH.
 
-export PATH="$PATH:/usr/local/bin:/Users/$USER/.local/bin"
+export PATH="$PATH:/usr/local/bin:/Users/$USER/.local/bin:$HOME/.local/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 
 # Path to your oh-my-zsh installation.
