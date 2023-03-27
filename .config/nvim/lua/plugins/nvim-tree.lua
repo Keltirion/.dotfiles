@@ -6,4 +6,21 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+	view = {
+		width = 40,
+	},
+	renderer = {
+		highlight_git = true,
+		icons = {
+			show = {
+				git = false,
+			}
+		}
+	},
+	filters = {
+		custom = {
+			"^\\.git"
+		}
+	}
+})

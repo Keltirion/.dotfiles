@@ -46,13 +46,25 @@ wk.register({
     },
 }, { prefix = "<leader>" })
 
+-- Tabs
+wk.register({
+    T = {
+        name = "Tabs",
+        q = { "<cmd>tabclose<cr>", "Close tab" },
+        a = { "<cmd>tabnew<cr>", "New tab" },
+				l = { "<cmd>tabNext<cr>", "Next tab" },
+				h = { "<cmd>tabprevious<cr>", "Previous tab" },
+    },
+}, { prefix = "<leader>" })
+
 -- Explorer
 wk.register({
     e = {
         name = "Explorer",
         e = { "<cmd>NvimTreeFocus<cr>", "Explore files" },
-        q = { "<cmd>NvimTreeClose<cr>", "Close terminal" },
-        c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
+        q = { "<cmd>NvimTreeClose<cr>", "Close explorer" },
+        f = { "<cmd>Telescope find_files<cr>", "Find files" },
+        -- c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
     },
 }, { prefix = "<leader>" })
 
@@ -70,12 +82,26 @@ wk.register({
     g = {
         name = "Git",
         l = { "<cmd>LazyGitCurrentFile<cr>", "Start lazygit" },
+				v = { "<cmd>Gitsigns select_hunk<cr>", "Select hunk" },
+				d = { "<cmd>Gitsigns toggle_deleted<cr>", "Show deleted" },
+				r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+				["]"] = { "<cmd>Gitsigns next_hunk<cr>", "Next git hunk" },
+				["["] = { "<cmd>Gitsigns prev_hunk<cr>", "Previous git hunk" },
     },
 }, { prefix = "<leader>" })
 
+-- Project
 wk.register({
     p = {
-        name = "Packer",
+        name = "Project",
+        r = { "<cmd>Telescope projects<cr>", "Show recent projects" },
+    },
+}, { prefix = "<leader>" })
+
+-- Config
+wk.register({
+    c = {
+        name = "Config",
         s = { "<cmd>PackerSync<cr>", "Packer sync" },
     },
 }, { prefix = "<leader>" })
