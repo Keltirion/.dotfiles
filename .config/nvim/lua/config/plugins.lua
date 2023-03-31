@@ -7,7 +7,6 @@ local ensure_packer = function()
 		return true
 	end
 	return false
-
 end
 
 local packer_bootstrap = ensure_packer()
@@ -19,17 +18,46 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-fugitive'
 	use 'nvim-tree/nvim-web-devicons'
 	use 'kdheepak/lazygit.nvim'
-	use 'navarasu/onedark.nvim'
 	use 'nanozuki/tabby.nvim'
 	use 'lukas-reineke/indent-blankline.nvim'
-
+	use 'shaunsingh/nord.nvim'
+	-- Lua
 	use {
-		'ahmedkhalf/project.nvim',
+		"folke/which-key.nvim",
 		config = function()
-			require("project_nvim").setup {
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup {
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
 				-- refer to the configuration section below
+				window = {
+					border = "single",
+					margin = { 0, 0, 0, 0 },
+				},
+				layout = {
+					spacing = 4,
+					align = "center",
+				}
+			}
+		end
+	}
+
+	use {
+		'goolord/alpha-nvim',
+		config = function()
+			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+		end
+	}
+
+	use {
+		"akinsho/toggleterm.nvim",
+		tag = '*',
+		config = function()
+			require("toggleterm").setup {
+				float_opts = {
+					border = "single",
+				}
 			}
 		end
 	}
@@ -41,12 +69,23 @@ return require('packer').startup(function(use)
 
 	use {
 		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+		require('lualine').setup {
+			options = {
+				disabled_filetypes = {
+					'packer',
+					'NvimTree'
+				}
+			}
+		}
 	}
 
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
-		requires = { { 'nvim-lua/plenary.nvim' } }
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'nvim-telescope/telescope-project.nvim'
+		}
 	}
 
 	use {
@@ -54,7 +93,7 @@ return require('packer').startup(function(use)
 		requires = {
 			'nvim-tree/nvim-web-devicons', -- optional, for file icons
 		},
-		tag = 'nightly' -- optional, updated every week. (see issue #1193)
+		tag = 'nightly'               -- optional, updated every week. (see issue #1193)
 	}
 
 	use {
@@ -78,33 +117,36 @@ return require('packer').startup(function(use)
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
 	use {
-		"folke/which-key.nvim",
+		"someone-stole-my-name/yaml-companion.nvim",
+		requires = {
+			{ "neovim/nvim-lspconfig" },
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope.nvim" },
+		},
 		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup {
-			}
-		end
+			require("telescope").load_extension("yaml_schema")
+		end,
 	}
+
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
 		requires = {
 			-- LSP Support
-			{ 'neovim/nvim-lspconfig' }, -- Required
-			{ 'williamboman/mason.nvim' }, -- Optional
+			{ 'neovim/nvim-lspconfig' },          -- Required
+			{ 'williamboman/mason.nvim' },        -- Optional
 			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
 			-- Autocompletion
-			{ 'hrsh7th/nvim-cmp' }, -- Required
-			{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-			{ 'hrsh7th/cmp-buffer' }, -- Optional
-			{ 'hrsh7th/cmp-path' }, -- Optional
-			{ 'hrsh7th/cmp-nvim-lua' }, -- Optional
+			{ 'hrsh7th/nvim-cmp' },      -- Required
+			{ 'hrsh7th/cmp-nvim-lsp' },  -- Required
+			{ 'hrsh7th/cmp-buffer' },    -- Optional
+			{ 'hrsh7th/cmp-path' },      -- Optional
+			{ 'hrsh7th/cmp-nvim-lua' },  -- Optional
 			{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
 
 			-- Snippets
-			{ 'L3MON4D3/LuaSnip' }, -- Required
+			{ 'L3MON4D3/LuaSnip' },          -- Required
 			{ 'rafamadriz/friendly-snippets' }, -- Optional
 		}
 	}
