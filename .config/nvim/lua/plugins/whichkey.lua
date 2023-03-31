@@ -84,6 +84,7 @@ wk.register({
 	g = {
 		name = "Git",
 		l = { "<cmd>LazyGitCurrentFile<cr>", "Start lazygit" },
+		b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle line blame" },
 		v = { "<cmd>Gitsigns select_hunk<cr>", "Select hunk" },
 		d = { "<cmd>Gitsigns toggle_deleted<cr>", "Show deleted" },
 		r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
