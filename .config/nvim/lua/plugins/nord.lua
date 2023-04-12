@@ -1,3 +1,4 @@
-vim.g.nord_italic = false
-
-require('nord').set()
+-- vim.g.nord_italic = false
+-- vim.g.nord_borders = true
+--
+-- require('nord').set()

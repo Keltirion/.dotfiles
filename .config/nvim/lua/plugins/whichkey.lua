@@ -10,16 +10,20 @@ wk.register({
 
 -- Main page
 wk.register({
-	w = { "<cmd>w<cr>", "Save file" },
-	q = { "<cmd>bd<cr>", "Close current buffer" },
-	P = { [["+p]], "Paste from system clipboard" },
-	["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment" },
+	w = { "<cmd>w<cr>", "save file" },
+	q = { "<cmd>bd<cr>", "close current buffer" },
+	j = { "", "jump to word" },
+	s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Edit all occurences of word" },
+	-- Pasting
+	p = { [["+p]], "Paste from system clipboard" },
+	P = { [["*p]], "Paste from * clipboard" },
 }, { prefix = "<leader>" })
 
 -- Main page visual
 wk.register({
-	["/"] = { "<cmd>CommentToggle<cr>", "Toggle comment" },
-	Y = { [["+y]], "Copy to system clipboard" },
+	-- Yanking
+	y = { [["+y]], "Copy to system clipboard" },
+	Y = { [["+y]], "Copy to * clipboard" },
 }, { prefix = "<leader>", mode = "v" })
 
 -- Harpoon
@@ -97,7 +101,8 @@ wk.register({
 wk.register({
 	p = {
 		name = "Project",
-		s = { function() require'telescope'.extensions.project.project{ display_type = 'full', order_by = 'recent' } end, "Show projects" },
+		s = { function() require 'telescope'.extensions.project.project { display_type = 'full', order_by = 'recent' } end,
+			"Show projects" },
 		r = { "<cmd>Telescope projects<cr>", "Show recent projects" },
 		y = { "<cmd>Telescope yaml_schema<cr>", "Change yaml schema" },
 	},

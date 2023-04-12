@@ -7,6 +7,7 @@ local theme = {
   win = 'TabLine',
   tail = 'TabLine',
 }
+
 require('tabby.tabline').set(function(line)
   return {
     {

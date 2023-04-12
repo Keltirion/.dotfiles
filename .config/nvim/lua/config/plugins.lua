@@ -13,15 +13,23 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
-	use 'mbbill/undotree'
-	use 'theprimeagen/harpoon'
 	use 'tpope/vim-fugitive'
-	use 'nvim-tree/nvim-web-devicons'
-	use 'kdheepak/lazygit.nvim'
-	use 'nanozuki/tabby.nvim'
-	use 'lukas-reineke/indent-blankline.nvim'
+
+	-- Apperance
 	use 'shaunsingh/nord.nvim'
-	-- Lua
+	use 'lukas-reineke/indent-blankline.nvim'
+	use 'nanozuki/tabby.nvim'
+	use { "catppuccin/nvim", as = "catppuccin" }
+	use { 'fgheng/winbar.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+	}
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+	}
+
+
+	-- Keybindings
 	use {
 		"folke/which-key.nvim",
 		config = function()
@@ -42,14 +50,11 @@ return require('packer').startup(function(use)
 			}
 		end
 	}
+	-- Git
+	use 'kdheepak/lazygit.nvim'
+	use { 'lewis6991/gitsigns.nvim', tag = 'v0.6' }
 
-	use {
-		'goolord/alpha-nvim',
-		config = function()
-			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
-		end
-	}
-
+	-- Terminal
 	use {
 		"akinsho/toggleterm.nvim",
 		tag = '*',
@@ -62,51 +67,37 @@ return require('packer').startup(function(use)
 		end
 	}
 
+	-- File
+	use {
+		'nvim-tree/nvim-tree.lua',
+		requires = {
+			'nvim-tree/nvim-web-devicons',
+		},
+		tag = 'nightly'
+	}
+
+	-- Movement
+	use 'theprimeagen/harpoon'
 	use {
 		'ggandor/leap.nvim',
 		requires = { { 'tpope/vim-repeat' } }
 	}
 
-	use {
-		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-		require('lualine').setup {
-			options = {
-				disabled_filetypes = {
-					'packer',
-					'NvimTree'
-				}
-			}
-		}
-	}
-
+	-- Telescope
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
 		requires = {
 			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope-project.nvim'
+			'nvim-telescope/telescope-project.nvim',
+			'cljoly/telescope-repo.nvim'
 		}
 	}
-
+	-- Comment
 	use {
-		'nvim-tree/nvim-tree.lua',
-		requires = {
-			'nvim-tree/nvim-web-devicons', -- optional, for file icons
-		},
-		tag = 'nightly'               -- optional, updated every week. (see issue #1193)
-	}
-
-	use {
-		'terrortylor/nvim-comment',
+		'numToStr/Comment.nvim',
 		config = function()
-			require('nvim_comment').setup({
-				comment_empty = false
-			})
+			require('Comment').setup()
 		end
-	}
-
-	use {
-		'lewis6991/gitsigns.nvim', tag = 'v0.6',
 	}
 
 	use {

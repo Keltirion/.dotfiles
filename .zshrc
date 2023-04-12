@@ -19,7 +19,7 @@ export PATH="$PATH:/opt/homebrew/bin"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
-export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOSTART=false
 export ZSH_TMUX_AUTOCONNECT=false
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
@@ -90,6 +90,8 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
+
 plugins=(git kubectl ssh-agent tmux sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
 
 zstyle :omz:plugins:ssh-agent quiet yes
@@ -130,6 +132,7 @@ source "${HOME}/.oh-my-zsh/completions/kubectl"
 alias tf="terraform"
 alias tg="terragrunt"
 alias k="kubectl"
+alias wk="watch -n 1 kubectl"
 alias v="vim"
 alias lg="lazygit"
 alias ssk="kitty +kitten ssh"
