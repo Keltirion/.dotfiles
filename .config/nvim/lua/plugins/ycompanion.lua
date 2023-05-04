@@ -1,7 +1,8 @@
 local cfg = require("yaml-companion").setup({
-  -- Add any options here, or leave empty to use the default settings
-  -- lspconfig = {
-  --   cmd = {"yaml-language-server"}
-  -- },
+	builtin_matchers = {
+		kubernetes = { enabled = true },
+		cloud_init = { enabled = true }
+	}
 })
+
 require("lspconfig")["yamlls"].setup(cfg)

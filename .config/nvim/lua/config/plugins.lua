@@ -58,13 +58,6 @@ return require('packer').startup(function(use)
 	use {
 		"akinsho/toggleterm.nvim",
 		tag = '*',
-		config = function()
-			require("toggleterm").setup {
-				float_opts = {
-					border = "single",
-				}
-			}
-		end
 	}
 
 	-- File

@@ -22,6 +22,10 @@ export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 export ZSH_TMUX_AUTOSTART=false
 export ZSH_TMUX_AUTOCONNECT=false
 
+export EDITOR=nvim
+
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Set name of the theme to load --- if set to "random", it will
@@ -92,7 +96,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Add wisely, as too many plugins slow down shell startup.
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 
-plugins=(git kubectl ssh-agent tmux sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting vi-mode)
+plugins=(git kubectl ssh-agent tmux sudo zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
 
 zstyle :omz:plugins:ssh-agent quiet yes
 zstyle :omz:plugins:ssh-agent identities $(find ~/.ssh/certs -type f)

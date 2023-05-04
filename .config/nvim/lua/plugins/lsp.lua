@@ -45,7 +45,14 @@ require 'lspconfig'.lua_ls.setup({
 })
 
 require 'lspconfig'.powershell_es.setup {}
-require 'lspconfig'.terraformls.setup {}
+
+require 'lspconfig'.terraformls.setup {
+	filetypes = {
+		"terraform",
+		"hcl"
+	}
+}
+
 require 'lspconfig'.tflint.setup {}
 
 lsp.setup()
