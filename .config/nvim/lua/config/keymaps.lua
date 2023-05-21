@@ -15,10 +15,6 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "Q", "<nop>")
@@ -32,9 +28,16 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
+-- fine cmf line
+vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', {noremap = true})
+
+-- toggle floating terminal
+vim.keymap.set("n", "<C-t>", "<cmd>ToggleTerm direction=float<cr>")
+vim.keymap.set("i", "<C-t>", "<cmd>ToggleTerm direction=float<cr>")
+
 -- reload vim config
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+	vim.cmd("so")
 end)
 -- leader key
 vim.g.mapleader = " "
@@ -51,10 +54,10 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 -- resize windows
-vim.keymap.set("n", "<C-S-l>", "<cmd>vertical resize +1<CR>")
-vim.keymap.set("n", "<C-S-h>", "<cmd>vertical resize -1<CR>")
-vim.keymap.set("n", "<C-S-j>", "<cmd>horizontal resize -1<CR>")
-vim.keymap.set("n", "<C-S-k>", "<cmd>horizontal resize +1<CR>")
+-- vim.keymap.set("n", "<C-S-L>", "<cmd>vertical resize +1<CR>")
+-- vim.keymap.set("n", "<C-S-H>", "<cmd>vertical resize -1<CR>")
+-- vim.keymap.set("n", "<C-+>", "<cmd>horizontal resize -1<CR>")
+-- vim.keymap.set("n", "<C-->", "<cmd>horizontal resize +1<CR>")
 -- scroll window
 vim.keymap.set("n", "<S-j>", "<C-d>zz")
 vim.keymap.set("n", "<S-k>", "<C-u>zz")

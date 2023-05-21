@@ -1,15 +1,22 @@
-require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.lsp")
-require("plugins.fugitive")
-require("plugins.whichkey")
-require("plugins.nvim-tree")
-require("plugins.catpuccin")
-require("plugins.nord")
-require("plugins.tabby")
-require("plugins.lualine")
-require("plugins.cmp")
-require("plugins.gitsigns")
-require("plugins.leap")
-require("plugins.toggleterm")
-require("plugins.ycompanion")
+return {
+	'tpope/vim-fugitive',
+	'kdheepak/lazygit.nvim',
+	{
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
+	},
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup {}
+		end
+	},
+	{
+		'VonHeikemen/fine-cmdline.nvim',
+		dependencies = {
+			'MunifTanjim/nui.nvim'
+		}
+	}
+}
