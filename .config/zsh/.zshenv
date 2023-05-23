@@ -13,6 +13,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 export ZDOTDIR=$HOME/.config/zsh \
 export ZSH=$HOME/.config/zsh/.oh-my-zsh
 export KEEP_ZSHRC=yes
+export HISTFILE=$ZDOTDIR/.zsh_history
 export ZSH_CUSTOM=$HOME/.config/zsh/.oh-my-zsh/custom
 export ZSH_COMPDUMP=$HOME/.cache/zsh/.zcompdump-${HOST}
 

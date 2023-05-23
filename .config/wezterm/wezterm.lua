@@ -42,7 +42,7 @@ config.hide_tab_bar_if_only_one_tab = true
 
 -- Fonts
 config.font = wezterm.font 'CaskaydiaCove Nerd Font'
-config.font_size = 14
+config.font_size = 16
 
 config.window_frame = {
 
@@ -73,13 +73,13 @@ config.keys = {
 		},
 	},
 	{
-		key = '+',
-		mods = 'OPT|SHIFT',
+		key = 'v',
+		mods = 'OPT|CTRL',
 		action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
 	},
 	{
-		key = '_',
-		mods = 'OPT|SHIFT',
+		key = 'h',
+		mods = 'OPT|CTRL',
 		action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
 	},
 	-- Resize pane
@@ -88,10 +88,10 @@ config.keys = {
 	{ key = 'k', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Up', 1 } },
 	{ key = 'j', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Down', 1 } },
 	-- Swap pane
-	{ key = 'h', mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Left' },
-	{ key = 'l', mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Right' },
-	{ key = 'k', mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Up' },
-	{ key = 'j', mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Down' },
+	{ key = 'h', mods = 'OPT', action = act.ActivatePaneDirection 'Left' },
+	{ key = 'l', mods = 'OPT', action = act.ActivatePaneDirection 'Right' },
+	{ key = 'k', mods = 'OPT', action = act.ActivatePaneDirection 'Up' },
+	{ key = 'j', mods = 'OPT', action = act.ActivatePaneDirection 'Down' },
 }
 
 config.key_tables = {
