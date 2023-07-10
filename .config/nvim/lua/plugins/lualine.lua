@@ -19,7 +19,7 @@ return {
 				},
 				section_separators = { left = ' ', right = ' ' },
 				component_separators = { left = '|', right = '|' },
-				globalstatus = false
+				globalstatus = true
 			},
 			sections = {
 				lualine_a = { 'mode' },

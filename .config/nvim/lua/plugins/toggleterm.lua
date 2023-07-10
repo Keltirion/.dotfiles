@@ -3,7 +3,7 @@ return {
 	version = '*',
 	config = function()
 		require("toggleterm").setup {
-			hide_numbers = false,
+			hide_numbers = true,
 			float_opts = {
 				border = 'curved'
 			},

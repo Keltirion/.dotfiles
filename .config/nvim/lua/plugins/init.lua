@@ -12,11 +12,5 @@ return {
 		config = function()
 			require("nvim-autopairs").setup {}
 		end
-	},
-	{
-		'VonHeikemen/fine-cmdline.nvim',
-		dependencies = {
-			'MunifTanjim/nui.nvim'
-		}
 	}
 }

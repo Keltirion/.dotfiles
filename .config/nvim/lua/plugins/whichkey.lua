@@ -1,10 +1,10 @@
-return	{
+return {
 	"folke/which-key.nvim",
 	config = function()
 		vim.o.timeout = true
 		vim.o.timeoutlen = 300
 		require("which-key").setup {
- 			window = {
+			window = {
 				border = "single",
 				margin = { 0, 0, 0, 0 },
 			},
@@ -41,6 +41,16 @@ return	{
 			y = { [["+y]], "Copy to system clipboard" },
 			Y = { [["+y]], "Copy to * clipboard" },
 		}, { prefix = "<leader>", mode = "v" })
+
+		-- Diagnostics
+		wk.register({
+			d = {
+				name = "Diagnostics",
+				["]"] = { vim.diagnostic.goto_next, "Next diagnostic" },
+				["["] = { vim.diagnostic.goto_next, "Previous diagnostic" },
+				s = { vim.diagnostic.open_float, "Show diagnostic" }
+			}
+		}, { prefix = "<leader>" })
 
 		-- Harpoon
 		wk.register({
@@ -81,9 +91,10 @@ return	{
 		wk.register({
 			e = {
 				name = "Explorer",
-				e = { "<cmd>NvimTreeFocus<cr>", "Explore files" },
-				q = { "<cmd>NvimTreeClose<cr>", "Close explorer" },
-				f = { "<cmd>Telescope find_files<cr>", "Find files" },
+				e = { "<cmd>lua MiniFiles.open()<cr>", "Explore files" },
+				q = { "<cmd>lua MiniFiles.close()<cr>", "Close explorer" },
+				w = { "<cmd>lua MiniFiles.synchronise()<cr>", "Write changes" },
+				f = { function () require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' }}) end, "Find files" },
 				-- c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
 			},
 		}, { prefix = "<leader>" })
@@ -117,7 +128,8 @@ return	{
 		wk.register({
 			p = {
 				name = "Project",
-				s = { function() require 'telescope'.extensions.project.project { display_type = 'full', order_by = 'recent' } end,
+				s = {
+					function() require 'telescope'.extensions.project.project { display_type = 'full', order_by = 'recent' } end,
 					"Show projects" },
 				r = { "<cmd>Telescope projects<cr>", "Show recent projects" },
 				y = { "<cmd>Telescope yaml_schema<cr>", "Change yaml schema" },
@@ -131,6 +143,5 @@ return	{
 				s = { "<cmd>PackerSync<cr>", "Packer sync" },
 			},
 		}, { prefix = "<leader>" })
-
 	end
 }
