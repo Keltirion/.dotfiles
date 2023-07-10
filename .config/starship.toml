@@ -1,15 +1,16 @@
 palette = 'catppuccin_mocha'
 
-right_format = """
-$azure
-$kubernetes
-"""
+add_newline = true
+# right_format = """
+# $azure
+# $kubernetes
+# """
 
-[azure]
-disabled = false
-
-[kubernetes]
-disabled = false
+# [azure]
+# disabled = false
+#
+# [kubernetes]
+# disabled = false
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
