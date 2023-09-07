@@ -1,4 +1,5 @@
 vim.opt.background = "dark"
+vim.opt.mouse = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
@@ -23,10 +24,9 @@ vim.opt.updatetime = 50
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-
 vim.lsp.set_log_level("off")
 
-vim.g.tpipeline_autoembed = 0
+vim.g.tpipeline_autoembed = 1
 
 vim.wo.fillchars='eob: '
 

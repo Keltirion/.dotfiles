@@ -45,11 +45,34 @@ return {
 			'tflint',
 			'gopls',
 			'golangci_lint_ls',
-			'dockerls'
+			'dockerls',
+			'docker_compose_language_service',
+			'azure-pipelines-ls'
 		})
 
 		-- Servers
 		require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+		require('lspconfig').dockerls.setup {}
+		require('lspconfig').docker_compose_language_service.setup {}
+
+		require('lspconfig').yamlls.setup {
+			filetypes = {
+				"DOCKERFILE"
+			},
+			settings = {
+				yaml = {
+					keyOrdering = false,
+					schemaStora = {
+						enable = true
+					},
+					schemas = {
+						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = "*azure*pipeline*.ya*l",
+						["https://json.schemastore.org/dockerd.json"] = "DOCKERFILE",
+						["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.ya*l"
+					},
+				},
+			}
+		}
 
 		require('lspconfig').gopls.setup {
 			settings = {
@@ -95,6 +118,22 @@ return {
 				},
 			},
 		})
+
+		require("lspconfig").azure_pipelines_ls.setup({
+			settings = {
+				yaml = {
+					schemas = {
+						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+							"/azure-pipeline*.y*l",
+							"/*.azure*",
+							"Azure-Pipelines/**/*.y*l",
+							"Pipelines/*.y*l",
+						},
+					},
+				},
+			},
+		})
+
 		lsp.setup()
 
 		-- CMP
@@ -105,6 +144,8 @@ return {
 			sources = {
 				{ name = 'luasnip' },
 				{ name = 'nvim_lsp' },
+				{ name = 'buffer' },
+				{ name = 'path'}
 			},
 			window = {
 				completion = cmp.config.window.bordered(),

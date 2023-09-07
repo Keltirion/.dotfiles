@@ -19,7 +19,8 @@ return {
 			f = {
 				name = "File",
 				f = { "<cmd>lua vim.lsp.buf.format { async = true }<CR>", "Format file" },
-				s = { function() require("telescope.builtin").find_files() end, "Search for file in project" },
+				s = { function() require("telescope.builtin").find_files({ layout_strategy = 'vertical' }) end,
+					"Search for file in project" },
 			},
 		}, { prefix = "<leader>" })
 
@@ -92,9 +93,17 @@ return {
 			e = {
 				name = "Explorer",
 				e = { "<cmd>lua MiniFiles.open()<cr>", "Explore files" },
+				s = { "<cmd>NvimTreeToggle<cr>", "Show/hide filetree" },
+				t = { "<cmd>NvimTreeFocus<cr>", "Show/focus filetree" },
 				q = { "<cmd>lua MiniFiles.close()<cr>", "Close explorer" },
 				w = { "<cmd>lua MiniFiles.synchronise()<cr>", "Write changes" },
-				f = { function () require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' }}) end, "Find files" },
+				f = {
+					function()
+						require('telescope.builtin').find_files({
+							layout_strategy = 'vertical',
+							find_command = { 'rg', '--files', '--hidden', '-g', '!.git' }
+						})
+					end, "Find files" },
 				-- c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
 			},
 		}, { prefix = "<leader>" })
@@ -129,7 +138,10 @@ return {
 			p = {
 				name = "Project",
 				s = {
-					function() require 'telescope'.extensions.project.project { display_type = 'full', order_by = 'recent' } end,
+					function()
+						require 'telescope'.extensions.project.project { layout_strategy = 'vertical', display_type = 'full', order_by =
+						'recent' }
+					end,
 					"Show projects" },
 				r = { "<cmd>Telescope projects<cr>", "Show recent projects" },
 				y = { "<cmd>Telescope yaml_schema<cr>", "Change yaml schema" },

@@ -8,8 +8,24 @@ return {
 	},
 	config = function()
 		local builtin = require('telescope.builtin')
+		local actions = require('telescope.actions')
 
 		require('telescope').setup {
+			defaults = {
+				layout_config = {
+					vertical = {
+						width = 0.9
+					}
+				},
+				mappings = {
+					n = {
+						["q"] = actions.close,
+					},
+					i = {
+						["<C-q>"] = actions.close
+					}
+				},
+			},
 			extensions = {
 				repo = {
 					list = {
