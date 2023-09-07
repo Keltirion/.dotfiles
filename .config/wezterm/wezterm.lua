@@ -12,45 +12,227 @@ if wezterm.config_builder then
 end
 
 -- This is where you actually apply your config choices
+config.window_close_confirmation = 'NeverPrompt'
 
 -- For example, changing the color scheme:
 config.color_scheme = 'Catppuccin Mocha'
 
 -- Apperance
 config.window_decorations = 'RESIZE'
-config.use_fancy_tab_bar = true
--- config.colors = {
--- 	tab_bar = {
--- 		background = '#2e3440',
--- 		active_tab = {
--- 			bg_color = '#2e3440',
--- 			fg_color = '#c0c0c0',
--- 		},
--- 		inactive_tab = {
--- 			bg_color = '#4c566a',
--- 			fg_color = '#c0c0c0',
--- 		},
--- 		new_tab = {
--- 			bg_color = '#4c566a',
--- 			fg_color = '#c0c0c0',
--- 		},
--- 	},
--- }
 
 -- Tab bar
-config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
+config.tab_max_width = 25
+config.show_tab_index_in_tab_bar = false
+config.switch_to_last_active_tab_when_closing_tab = true
+
+local process_icons = {
+  ['docker'] = {
+    { Text = wezterm.nerdfonts.linux_docker },
+  },
+  ['docker-compose'] = {
+    { Text = wezterm.nerdfonts.linux_docker },
+  },
+  ['kuberlr'] = {
+    { Text = wezterm.nerdfonts.linux_docker },
+  },
+  ['kubectl'] = {
+    { Text = wezterm.nerdfonts.linux_docker },
+  },
+  ['nvim'] = {
+    { Text = wezterm.nerdfonts.custom_vim },
+  },
+  ['vim'] = {
+    { Text = wezterm.nerdfonts.dev_vim },
+  },
+  ['node'] = {
+    { Text = wezterm.nerdfonts.mdi_hexagon },
+  },
+  ['zsh'] = {
+    { Text = wezterm.nerdfonts.cod_terminal },
+  },
+  ['bash'] = {
+    { Text = wezterm.nerdfonts.cod_terminal_bash },
+  },
+  ['btm'] = {
+    { Text = wezterm.nerdfonts.mdi_chart_donut_variant },
+  },
+  ['htop'] = {
+    { Text = wezterm.nerdfonts.mdi_chart_donut_variant },
+  },
+  ['cargo'] = {
+    { Text = wezterm.nerdfonts.dev_rust },
+  },
+  ['go'] = {
+    { Text = wezterm.nerdfonts.mdi_language_go },
+  },
+  ['lazydocker'] = {
+    { Text = wezterm.nerdfonts.linux_docker },
+  },
+  ['git'] = {
+    { Text = wezterm.nerdfonts.dev_git },
+  },
+  ['lua'] = {
+    { Text = wezterm.nerdfonts.seti_lua },
+  },
+  ['wget'] = {
+    { Text = wezterm.nerdfonts.mdi_arrow_down_box },
+  },
+  ['curl'] = {
+    { Text = wezterm.nerdfonts.mdi_flattr },
+  },
+  ['gh'] = {
+    { Text = wezterm.nerdfonts.dev_github_badge },
+  },
+}
+
+local function get_current_working_dir(tab)
+  local current_dir = tab.active_pane.current_working_dir
+  local HOME_DIR = string.format('file://%s', os.getenv('HOME'))
+
+  return current_dir == HOME_DIR and '.'
+      or string.gsub(current_dir, '(.*[/\\])(.*)', '%2')
+end
+
+local function get_process(tab)
+  local process_name = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
+  if string.find(process_name, 'kubectl') then
+    process_name = 'kubectl'
+  end
+
+  return wezterm.format(
+    process_icons[process_name]
+    or { { Text = string.format('[%s]', process_name) } }
+  )
+end
+
+wezterm.on(
+  'format-tab-title',
+  function(tab, tabs, panes, config, hover, max_width)
+    local has_unseen_output = false
+    if not tab.is_active then
+      for _, pane in ipairs(tab.panes) do
+        if pane.has_unseen_output then
+          has_unseen_output = true
+          break
+        end
+      end
+    end
+
+    local title = string.format(' %s ~ %s  ', get_process(tab), get_current_working_dir(tab))
+
+    if has_unseen_output then
+      return {
+        { Foreground = { Color = 'Orange' } },
+        { Text = title },
+      }
+    end
+
+    return {
+      { Text = title },
+    }
+  end
+)
+
+wezterm.on('update-right-status', function(window)
+  if not window:get_dimensions().is_full_screen then
+    window:set_right_status("")
+    return
+  end
+
+  window:set_right_status(wezterm.format({
+    { Foreground = { Color = '#808080' } },
+    { Text = wezterm.strftime(' %R ') },
+  }))
+end)
 
 -- Fonts
 config.font = wezterm.font 'CaskaydiaCove Nerd Font'
-config.font_size = 16
+config.font_size = 14
 
 config.window_frame = {
+	font = wezterm.font 'CaskaydiaCove Nerd Font',
+	font_size = 14
 
 }
+
+wezterm.on('update-right-status', function(window, pane)
+	window:set_right_status(window:active_workspace())
+end)
 
 -- Keys
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = {
+	-- Workspaces
+	{
+		key = '0',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'default',
+		},
+	},
+	{
+		key = '1',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'Qualityminds',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Qualityminds/'
+			},
+		},
+	},
+	{
+		key = '2',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'Zeiss',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Zeiss/'
+			},
+		},
+	},
+	{
+		key = '3',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'DigitalTeammates',
+			spawn = {
+				cwd = '/Users/lech/Repositories/DigitalTeammates/'
+			},
+		},
+	},
+	{
+		key = '4',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'MunichRe',
+			spawn = {
+				cwd = '/Users/lech/Repositories/MunichRe/'
+			},
+		},
+	},
+	{
+		key = '5',
+		mods = 'CMD|CTRL|OPT',
+		action = act.SwitchToWorkspace {
+			name = 'Personal',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Personal/'
+			},
+		},
+	},
+	-- Splits
+	{
+		key = 'x',
+		mods = 'CMD|CTRL|OPT',
+		action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+	},
+	{
+		key = 'v',
+		mods = 'CMD|CTRL|OPT',
+		action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+	},
 	{
 		key = 'f',
 		mods = 'CTRL|CMD',
@@ -82,16 +264,24 @@ config.keys = {
 		mods = 'OPT|CTRL',
 		action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
 	},
+	{
+		key = 'd',
+		mods = 'CMD',
+		action = wezterm.action.SplitPane {
+			direction = 'Next',
+			size = { Percent = 50 },
+		}
+	},
 	-- Resize pane
 	{ key = 'h', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Left', 1 } },
 	{ key = 'l', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Right', 1 } },
 	{ key = 'k', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Up', 1 } },
 	{ key = 'j', mods = 'OPT|SHIFT', action = act.AdjustPaneSize { 'Down', 1 } },
 	-- Swap pane
-	{ key = 'h', mods = 'OPT', action = act.ActivatePaneDirection 'Left' },
-	{ key = 'l', mods = 'OPT', action = act.ActivatePaneDirection 'Right' },
-	{ key = 'k', mods = 'OPT', action = act.ActivatePaneDirection 'Up' },
-	{ key = 'j', mods = 'OPT', action = act.ActivatePaneDirection 'Down' },
+	{ key = 'h', mods = 'OPT',       action = act.ActivatePaneDirection 'Left' },
+	{ key = 'l', mods = 'OPT',       action = act.ActivatePaneDirection 'Right' },
+	{ key = 'k', mods = 'OPT',       action = act.ActivatePaneDirection 'Up' },
+	{ key = 'j', mods = 'OPT',       action = act.ActivatePaneDirection 'Down' },
 }
 
 config.key_tables = {
