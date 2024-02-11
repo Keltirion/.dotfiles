@@ -1,28 +1,31 @@
 return {
 	'VonHeikemen/lsp-zero.nvim',
 	branch = 'v2.x',
+
 	dependencies = {
 		-- LSP Support
-		{ 'neovim/nvim-lspconfig' }, -- Required
+		{ 'neovim/nvim-lspconfig' },
 		{
-			-- Optional
 			'williamboman/mason.nvim',
 			build = function()
 				pcall(vim.cmd, 'MasonUpdate')
 			end,
 		},
-		{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
+		{ 'williamboman/mason-lspconfig.nvim' },
 		-- Autocompletion
-		{ 'hrsh7th/nvim-cmp' },   -- Required
-		{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-		{ 'L3MON4D3/LuaSnip' },   -- Required
+		{ 'hrsh7th/nvim-cmp' },
+		{ 'hrsh7th/cmp-nvim-lsp' },
+		{ 'L3MON4D3/LuaSnip' },
 		{ 'rafamadriz/friendly-snippets' },
-		{ 'saadparwaiz1/cmp_luasnip' }
+		{ 'saadparwaiz1/cmp_luasnip' },
+		-- Formating
+		{ 'lukas-reineke/lsp-format.nvim' }
 	},
+
 	config = function()
 		-- LSP
 		local lsp = require('lsp-zero').preset({})
+
 		lsp.on_attach(function(client, bufnr)
 			lsp.default_keymaps({ buffer = bufnr })
 		end)
@@ -42,13 +45,14 @@ return {
 			'jsonls',
 			'lua_ls',
 			'terraformls',
-			'tflint',
 			'gopls',
-			'golangci_lint_ls',
 			'dockerls',
 			'docker_compose_language_service',
-			'azure-pipelines-ls'
+			'azure_pipelines_ls'
 		})
+
+		-- Formatter
+		require("lsp-format").setup {}
 
 		-- Servers
 		require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
@@ -57,7 +61,9 @@ return {
 
 		require('lspconfig').yamlls.setup {
 			filetypes = {
-				"DOCKERFILE"
+				'yaml',
+				'yml',
+				'cloud-init'
 			},
 			settings = {
 				yaml = {
@@ -66,15 +72,14 @@ return {
 						enable = true
 					},
 					schemas = {
-						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = "*azure*pipeline*.ya*l",
-						["https://json.schemastore.org/dockerd.json"] = "DOCKERFILE",
-						["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.ya*l"
+						["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "*cloud-init*"
 					},
 				},
 			}
 		}
 
 		require('lspconfig').gopls.setup {
+			on_attach = require("lsp-format").on_attach,
 			settings = {
 				gopls = {
 					hints = {
@@ -86,18 +91,61 @@ return {
 						parameterNames = true,
 						rangeVariableTypes = true,
 					},
-				},
+					analyses = {
+						assign = true,
+						atomic = true,
+						bools = true,
+						composites = true,
+						copylocks = true,
+						deepequalerrors = true,
+						embed = true,
+						errorsas = true,
+						fieldalignment = true,
+						httpresponse = true,
+						ifaceassert = true,
+						loopclosure = true,
+						lostcancel = true,
+						nilfunc = true,
+						nilness = true,
+						nonewvars = true,
+						printf = true,
+						shadow = true,
+						shift = true,
+						simplifycompositelit = true,
+						simplifyrange = true,
+						simplifyslice = true,
+						sortslice = true,
+						stdmethods = true,
+						stringintconv = true,
+						structtag = true,
+						testinggoroutine = true,
+						tests = true,
+						timeformat = true,
+						unmarshal = true,
+						unreachable = true,
+						unsafeptr = true,
+						unusedparams = true,
+						unusedresult = true,
+						unusedvariable = true,
+						unusedwrite = true,
+						useany = true,
+					},
+					hoverKind = "FullDocumentation",
+					linkTarget = "pkg.go.dev",
+					usePlaceholders = true,
+					vulncheck = "Imports",
+				}
 			},
 		}
 
-		require('lspconfig').tflint.setup {
-			filetypes = {
-				"terraform",
-				"terraform-vars",
-				"tf",
-				"hcl"
-			}
-		}
+		-- require('lspconfig').tflint.setup {
+		-- 	filetypes = {
+		-- 		"terraform",
+		-- 		"terraform-vars",
+		-- 		"tf",
+		-- 		"hcl"
+		-- 	}
+		-- }
 
 		require('lspconfig').terraformls.setup({
 			filetypes = {
@@ -120,6 +168,9 @@ return {
 		})
 
 		require("lspconfig").azure_pipelines_ls.setup({
+			filetypes = {
+				'yaml.azure-pipelines'
+			},
 			settings = {
 				yaml = {
 					schemas = {
@@ -139,13 +190,22 @@ return {
 		-- CMP
 		require('lsp-zero').extend_cmp()
 		require('luasnip.loaders.from_vscode').lazy_load()
+
+		local luasnip = require('luasnip')
 		local cmp = require('cmp')
+
+		local has_words_before = function()
+			unpack = unpack or table.unpack
+			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+		end
+
 		cmp.setup({
 			sources = {
 				{ name = 'luasnip' },
 				{ name = 'nvim_lsp' },
 				{ name = 'buffer' },
-				{ name = 'path'}
+				{ name = 'path' }
 			},
 			window = {
 				completion = cmp.config.window.bordered(),
@@ -156,7 +216,32 @@ return {
 				['<CR>'] = cmp.mapping.confirm({ select = false }),
 
 				-- Ctrl+Space to trigger completion menu
-				['<C-Space>'] = cmp.mapping.complete(),
+				['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+
+				-- Super 'Tab'
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+						-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+						-- they way you will only jump inside the snippet region
+					elseif luasnip.expand_or_jumpable() then
+						luasnip.expand_or_jump()
+					elseif has_words_before() then
+						cmp.complete()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					elseif luasnip.jumpable(-1) then
+						luasnip.jump(-1)
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
 			},
 		})
 	end

@@ -12,27 +12,27 @@ return {
 
 		require('lualine').setup {
 			options = {
-				theme = 'nord',
+				theme = 'catppuccin',
 				disabled_filetypes = {
 					'packer',
 					'NvimTree'
 				},
 				section_separators = { left = ' ', right = ' ' },
-				component_separators = { left = '|', right = '|' },
+				component_separators = { left = '', right = '' },
 				globalstatus = true
 			},
 			sections = {
-				lualine_a = { 'mode' },
-				lualine_b = { 'branch', 'diff', 'diagnostics' },
-				lualine_c = { 'filename' },
-				lualine_x = { get_schema, 'filetype', 'progress', 'fileformat' },
-				lualine_y = {},
-				lualine_z = { '' }
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = { 'filename','branch', 'diff', 'diagnostics' },
+				lualine_y = { 'filetype', 'progress', 'fileformat' },
+				lualine_z = { 'mode'}
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = { 'filename' },
+				lualine_c = {},
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = {},

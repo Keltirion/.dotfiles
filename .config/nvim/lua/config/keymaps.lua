@@ -44,8 +44,8 @@ vim.keymap.set("i", "<C-`>", "<cmd>ToggleTerm size=30 dir=git_dir direction=hori
 vim.keymap.set("t", "<C-`>", "<cmd>ToggleTerm size=30 dir=git_dir direction=horizontal<cr>")
 
 vim.keymap.set("n", "<Esc>", "i<Cmd>ToggleTerm<cr>")
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("t", "<S-Esc>", "<Esc>")
+-- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+-- vim.keymap.set("t", "<S-Esc>", "<Esc>")
 -- reload vim config
 vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")

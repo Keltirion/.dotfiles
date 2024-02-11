@@ -15,9 +15,12 @@ function _G.set_terminal_keymaps()
 	vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-\><C-n>]], opts)
 end
 
+vim.cmd[[hi NvimTreeNormal guibg=NONE ctermbg=NONE]]
+
 vim.cmd [[
 augroup highlight_yank
 autocmd!
 au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=300})
 augroup END
 ]]
+

@@ -1,16 +1,22 @@
 palette = 'catppuccin_mocha'
 
 add_newline = true
-# right_format = """
-# $azure
-# $kubernetes
-# """
+right_format = """
+$azure
+$kubernetes
+"""
 
-# [azure]
-# disabled = false
-#
-# [kubernetes]
-# disabled = false
+[azure]
+disabled = false
+format = ' [$symbol($subscription)]($style) '
+symbol = '  '
+style = 'blue bold'
+
+[kubernetes]
+disabled = false
+format = '[ $symbol($cluster)]($style) '
+symbol = '󱃾  '
+style = 'green'
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

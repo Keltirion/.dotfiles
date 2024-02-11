@@ -1,18 +1,25 @@
 return {
 	"folke/noice.nvim",
-	dependencies = { 
+
+	dependencies = {
 		'MunifTanjim/nui.nvim',
 		'rcarriga/nvim-notify'
 	},
+
 	config = function()
 		require("noice").setup({
 			-- add any options here
 			-- routes = {
-			--   {
-			--     view = "notify",
-			--     filter = { event = "msg_showmode" },
-			--   },
-			-- },
+			-- 	{
+			-- 		filter = {
+			-- 			event = 'msg_show',
+			-- 			kind = '',
+			-- 			find = 'more line',
+			-- 		},
+			-- 		opts = { skip = true },
+			-- 	}
+			-- }
 		})
 	end
+
 }

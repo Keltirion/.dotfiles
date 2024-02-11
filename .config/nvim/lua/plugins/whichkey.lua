@@ -77,17 +77,6 @@ return {
 			},
 		}, { prefix = "<leader>" })
 
-		-- Tabs
-		wk.register({
-			T = {
-				name = "Tabs",
-				q = { "<cmd>tabclose<cr>", "Close tab" },
-				a = { "<cmd>tabnew<cr>", "New tab" },
-				l = { "<cmd>tabNext<cr>", "Next tab" },
-				h = { "<cmd>tabprevious<cr>", "Previous tab" },
-			},
-		}, { prefix = "<leader>" })
-
 		-- Explorer
 		wk.register({
 			e = {
@@ -95,7 +84,7 @@ return {
 				e = { "<cmd>lua MiniFiles.open()<cr>", "Explore files" },
 				s = { "<cmd>NvimTreeToggle<cr>", "Show/hide filetree" },
 				t = { "<cmd>NvimTreeFocus<cr>", "Show/focus filetree" },
-				q = { "<cmd>lua MiniFiles.close()<cr>", "Close explorer" },
+				q = { "<cmd>NvimTreeClose<cr>", "Close explorer" },
 				w = { "<cmd>lua MiniFiles.synchronise()<cr>", "Write changes" },
 				f = {
 					function()
@@ -104,18 +93,21 @@ return {
 							find_command = { 'rg', '--files', '--hidden', '-g', '!.git' }
 						})
 					end, "Find files" },
-				-- c = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "Explore file dir" },
 			},
 		}, { prefix = "<leader>" })
 
-		-- Terminal
+		-- Tab
 		wk.register({
 			t = {
-				name = "Terminal",
-				h = { "<cmd>ToggleTerm size=30 dir=git_dir direction=horizontal<cr>", "Start horizontal terminal" },
-				t = { "<cmd>ToggleTerm dir=git_dir direction=float<cr>", "Start floating terminal" },
-				q = { "<cmd>bd!<cr>", "Close terminal" },
-				w = { "<cmd>q<cr>", "Hide terminal" },
+				name = "Tab",
+				q = { "<cmd>tabclose<cr>", "Close tab" },
+				a = { "<cmd>tabnew<cr>", "New tab" },
+				l = { "<cmd>tabNext<cr>", "Next tab" },
+				h = { "<cmd>tabprevious<cr>", "Previous tab" },
+				-- h = { "<cmd>ToggleTerm size=30 dir=git_dir direction=horizontal<cr>", "Start horizontal terminal" },
+				-- t = { "<cmd>ToggleTerm dir=git_dir direction=float<cr>", "Start floating terminal" },
+				-- q = { "<cmd>bd!<cr>", "Close terminal" },
+				-- w = { "<cmd>q<cr>", "Hide terminal" },
 			},
 		}, { prefix = "<leader>" })
 
