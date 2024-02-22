@@ -1,4 +1,3 @@
-vim.opt.background = "dark"
 vim.opt.fillchars = { eob = " "}
 vim.opt.mouse = "a"
 vim.opt.nu = true
@@ -34,6 +33,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.commentstring = "#%s"
 	end
 })
+
 -- highlight yanked text for 200ms using the "Visual" highlight group
 vim.cmd(
 	[[augroup highlight_yank autocmd! au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200}) augroup END]])
@@ -47,5 +47,6 @@ vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
 vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
 
 vim.cmd([[autocmd BufRead,BufNewFile docker-compose* set filetype=yaml.docker-compose]])
+vim.cmd([[autocmd BufRead,BufNewFile *azure-pipeline* set filetype=yaml.azure-pipelines]])
 
 vim.cmd([[autocmd BufRead,BufNewFile *azure-pipeline* set filetype=yaml.azure-pipelines]])

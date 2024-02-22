@@ -72,6 +72,7 @@ return {
 						enable = true
 					},
 					schemas = {
+						["https://json.schemastore.org/kustomization.json"] = "/k8s/*.y*l",
 						["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "*cloud-init*"
 					},
 				},
