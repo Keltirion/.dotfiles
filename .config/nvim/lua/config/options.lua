@@ -39,14 +39,22 @@ vim.cmd(
 	[[augroup highlight_yank autocmd! au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200}) augroup END]])
 
 -- filetypes
-vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
+--
+-- ansible
+vim.cmd([[autocmd BufRead,BufNewFile */ansible-playbooks/* set filetype=yaml.ansible]])
 
+-- hcl
 vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
 vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
+
+-- terraform
 vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
+
+-- json
 vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
 
-vim.cmd([[autocmd BufRead,BufNewFile docker-compose* set filetype=yaml.docker-compose]])
-vim.cmd([[autocmd BufRead,BufNewFile *azure-pipeline* set filetype=yaml.azure-pipelines]])
+-- docker
+vim.cmd([[autocmd BufRead,BufNewFile */docker-compose* set filetype=yaml.docker-compose]])
 
-vim.cmd([[autocmd BufRead,BufNewFile *azure-pipeline* set filetype=yaml.azure-pipelines]])
+-- azure-pipelines
+vim.cmd([[autocmd BufRead,BufNewFile */*azure-pipeline* set filetype=yaml.azure-pipelines]])

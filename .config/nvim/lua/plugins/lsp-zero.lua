@@ -39,6 +39,7 @@ return {
 
 		-- LSP Servers
 		lsp.setup_servers({
+			'ansiblels',
 			'bashls',
 			'yamlls',
 			'vimls',
@@ -48,7 +49,7 @@ return {
 			'gopls',
 			'dockerls',
 			'docker_compose_language_service',
-			'azure_pipelines_ls'
+			'azure_pipelines_ls',
 		})
 
 		-- Formatter
@@ -58,6 +59,19 @@ return {
 		require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 		require('lspconfig').dockerls.setup {}
 		require('lspconfig').docker_compose_language_service.setup {}
+
+		require('lspconfig').ansiblels.setup {
+			settings = {
+				ansible = {
+					validation = {
+						enabled = false,
+						lint = {
+							enabled = false
+						}
+					}
+				}
+			}
+		}
 
 		require('lspconfig').yamlls.setup {
 			filetypes = {
