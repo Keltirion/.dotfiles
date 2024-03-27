@@ -200,6 +200,24 @@ return {
 
 		lsp.setup()
 
+		-- Mason
+		require('mason').setup({})
+		require('mason-lspconfig').setup({
+			ensure_installed = {
+				'ansiblels',
+				'bashls',
+				'yamlls',
+				'vimls',
+				'jsonls',
+				'lua_ls',
+				'terraformls',
+				'gopls',
+				'dockerls',
+				'docker_compose_language_service',
+				'azure_pipelines_ls',
+			}
+		})
+
 		-- CMP
 		require('lsp-zero').extend_cmp()
 		require('luasnip.loaders.from_vscode').lazy_load()
