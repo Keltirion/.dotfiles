@@ -58,3 +58,4 @@ vim.cmd([[autocmd BufRead,BufNewFile */docker-compose* set filetype=yaml.docker-
 
 -- azure-pipelines
 vim.cmd([[autocmd BufRead,BufNewFile */*azure-pipeline* set filetype=yaml.azure-pipelines]])
+vim.cmd([[autocmd BufRead,BufNewFile */pipeline*/* set filetype=yaml.azure-pipelines]])
