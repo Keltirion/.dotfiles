@@ -9,7 +9,11 @@ return {
 				shade = "dark",
 				percentage = 0.15, -- percentage of the shade to apply to the inactive window
 			},
-			transparent_background = true
+			transparent_background = true,
+			integrations = {
+				mason = true,
+				which_key = true
+			}
 		})
 		vim.cmd.colorscheme "catppuccin"
 	end,
