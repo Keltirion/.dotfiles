@@ -1,10 +1,14 @@
 palette = 'catppuccin_mocha'
 
 add_newline = true
+
 right_format = """
 $azure
 $kubernetes
 """
+
+[fill]
+symbol = '-'
 
 [azure]
 disabled = false
