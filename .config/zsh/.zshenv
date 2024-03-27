@@ -17,14 +17,18 @@ export HISTFILE=$ZDOTDIR/.zsh_history
 export ZSH_CUSTOM=$HOME/.config/zsh/.oh-my-zsh/custom
 export ZSH_COMPDUMP=$HOME/.cache/zsh/.zcompdump-${HOST}
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#d787ff,bold'
+
 # zsh vi plugin
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 # zsh tmux plugin
-export ZSH_TMUX_AUTOSTART=false
+export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOCONNECT=false
 
 # Golang
 export GOPATH="$HOME/.golib"
-export GOPATH="$GOPATH:$HOME/Repositories/Personal/Golang/"
+export GOPATH="$GOPATH:$HOME/Repositories/Personal/Golang/:$HOME/Repositories/Zeiss/Golang/"
 
+# Zellij
+export ZELLIJ_CONFIG_DIR="$HOME/.config/zellij/"
