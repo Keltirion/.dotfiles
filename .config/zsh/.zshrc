@@ -7,9 +7,11 @@
 #    - terragrunt
 
 # Aliasses
+alias shr="source ~/.config/zsh/.zshrc"
 alias tf="terraform"
 alias tg="terragrunt"
 alias k="kubectl"
+alias d="docker"
 alias kns="kubens"
 alias kcx="kubectx"
 alias wk="watch -n 1 kubectl"
@@ -18,6 +20,7 @@ alias lg="lazygit"
 alias ssk="kitty +kitten ssh"
 alias cls="clear"
 alias repo="du -a ~/Repositories/* | awk '{print $2}' | fzf | xargs -r code"
+alias zl="zellij"
 
 # TMUX
 alias qualityminds="tmux new -s qm -c ~/Repositories/Qualityminds"
@@ -25,6 +28,8 @@ alias zeiss="tmux new -s zeiss -c ~/Repositories/Zeiss"
 alias dtm="tmux new -s dtm -c ~/Repositories/DigitalTeammates"
 alias munichre="tmux new -s mre -c ~/Repositories/MunichRe"
 alias personal="tmux new -s personal -c ~/Repositories/Personal"
+
+alias tma="tmux attach-session -t"
 
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
