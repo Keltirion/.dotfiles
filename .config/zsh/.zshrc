@@ -79,7 +79,7 @@ if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
 fi
 
 if [ ! -d $ZSH_CUSTOM/themes/zsh-syntax-highlighting ]; then
-	git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/zsh-syntax-highlighting
+	git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 fi
 
 source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
