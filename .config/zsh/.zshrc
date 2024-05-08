@@ -36,7 +36,6 @@ declare -A custom_plugins
 custom_plugins[unixorn]="fzf-zsh-plugin"
 custom_plugins[Aloxaf]="fzf-tab"
 custom_plugins[jeffreytse]="zsh-vi-mode"
-custom_plugins[zsh-users]="zsh-syntax-highlighting"
 custom_plugins[zsh-users]="zsh-autosuggestions"
 
 # Install custom plugins
@@ -77,6 +76,10 @@ source <(compdef _switcher switch)
 # Theme
 if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
 	git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/catppuccin
+fi
+
+if [ ! -d $ZSH_CUSTOM/themes/zsh-syntax-highlighting ]; then
+	git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/zsh-syntax-highlighting
 fi
 
 source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
