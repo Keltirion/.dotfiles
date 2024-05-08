@@ -26,13 +26,6 @@ alias personal="tmux new -s personal -c ~/Repositories/Personal"
 
 alias tma="tmux attach-session -t"
 
-# Theme
-if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
-	git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/catppuccin
-fi
-
-source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
-
 # Basic plugins
 plugins+=(sudo git kubectl docker docker-compose terraform ansible azure ssh-agent)
 
@@ -55,8 +48,6 @@ for author plugin in "${(@kv)custom_plugins}"; do
 	fi
 	if [[ $plugin != "zsh-syntax-highlighting" ]]; then
 		plugins+=$plugin
-	else
-		source $ZSH_CUSTOM/plugins/$plugin/zsh-syntax-highlighting.zsh
 	fi
 done
 
@@ -82,5 +73,13 @@ source $ZSH/oh-my-zsh.sh
 source <(switcher init zsh)
 source <(alias s=switch)
 source <(compdef _switcher switch)
+
+# Theme
+if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
+	git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/catppuccin
+fi
+
+source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source $ZSH_CUSTOM/plugins/$plugin/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)"
