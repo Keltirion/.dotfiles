@@ -37,6 +37,7 @@ source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highligh
 plugins+=(sudo git kubectl docker docker-compose terraform ansible azure ssh-agent)
 
 # Custom plugins
+# Set author as key and repo as value
 declare -A custom_plugins
 
 custom_plugins[unixorn]="fzf-zsh-plugin"
