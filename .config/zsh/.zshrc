@@ -69,9 +69,11 @@ autoload -U promptinit && promptinit
 source $ZSH/oh-my-zsh.sh
 
 # kubeswitch
-source <(switcher init zsh)
-source <(alias s=switch)
-source <(compdef _switcher switch)
+if type "switch" > /dev/null; then
+	source <(switcher init zsh)
+	source <(alias s=switch)
+	source <(compdef _switcher switch)
+fi
 
 # Theme
 if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
