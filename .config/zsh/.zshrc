@@ -80,6 +80,6 @@ if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
 fi
 
 source $ZSH_CUSTOM/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
-source $ZSH_CUSTOM/plugins/$plugin/zsh-syntax-highlighting.zsh
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)"
