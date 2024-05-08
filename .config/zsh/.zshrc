@@ -78,7 +78,7 @@ if [ ! -d $ZSH_CUSTOM/themes/catppuccin ]; then
 	git clone --depth 1 https://github.com/catppuccin/zsh-syntax-highlighting.git $ZSH_CUSTOM/themes/catppuccin
 fi
 
-if [ ! -d $ZSH_CUSTOM/themes/zsh-syntax-highlighting ]; then
+if [ ! -d $ZSH_CUSTOM/plugins/zsh-syntax-highlighting ]; then
 	git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 fi
 
