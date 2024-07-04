@@ -2,23 +2,29 @@ palette = 'catppuccin_mocha'
 
 add_newline = true
 
-right_format = """
-$azure
-$kubernetes
-"""
+format = """
+ in $directory$git_branch$git_state$git_status$helm$python$golang $kubernetes  $azure
+ $character"""
+
+# right_format = """$azure$kubernetes"""
+
+[character]
+success_symbol = '[ ](bold_green)'
+error_symbol = '[ ](bold_red)'
+vimcmd_symbol = '[ ](bold_green)'
 
 [fill]
 symbol = '-'
 
 [azure]
 disabled = false
-format = ' [$symbol($subscription)]($style) '
+format = '[$symbol($subscription)]($style)'
 symbol = '  '
 style = 'blue bold'
 
 [kubernetes]
 disabled = false
-format = '[ $symbol($cluster)]($style) '
+format = '[$symbol($cluster)]($style)'
 symbol = '󱃾  '
 style = 'green'
 
