@@ -50,6 +50,7 @@ return {
 			'dockerls',
 			'docker_compose_language_service',
 			'azure_pipelines_ls',
+			'rnix',
 		})
 
 		-- Formatter
@@ -57,6 +58,7 @@ return {
 
 		-- Servers
 		require('lspconfig').lua_ls.setup {}
+		require('lspconfig').rnix.setup {}
 		require('lspconfig').dockerls.setup {}
 		require('lspconfig').docker_compose_language_service.setup {}
 
@@ -215,6 +217,7 @@ return {
 				'dockerls',
 				'docker_compose_language_service',
 				'azure_pipelines_ls',
+				'rnix',
 			}
 		})
 

@@ -1,6 +1,7 @@
 require("config.options")
 require("config.keymaps")
 require("config.plugins")
+require("config.autocommands")
 
 function _G.set_terminal_keymaps()
 	local opts = { buffer = 0 }

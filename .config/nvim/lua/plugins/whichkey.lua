@@ -82,9 +82,9 @@ return {
 			e = {
 				name = "Explorer",
 				e = { "<cmd>lua MiniFiles.open()<cr>", "Explore files" },
-				s = { "<cmd>NvimTreeToggle<cr>", "Show/hide filetree" },
-				t = { "<cmd>NvimTreeFocus<cr>", "Show/focus filetree" },
-				q = { "<cmd>NvimTreeClose<cr>", "Close explorer" },
+				s = { "<cmd>Neotree<cr>", "Show/hide filetree" },
+				t = { "<cmd>Neotree focus<cr>", "Show/focus filetree" },
+				q = { "<cmd>Neotree close<cr>", "Close explorer" },
 				w = { "<cmd>lua MiniFiles.synchronise()<cr>", "Write changes" },
 				f = {
 					function()
@@ -125,14 +125,21 @@ return {
 			},
 		}, { prefix = "<leader>" })
 
+		-- Session
+		wk.register({
+			s = {
+				name = "Session",
+				s = {"<cmd>SearchSession<cr>", "Search seassion"}
+			}
+		}, { prefix = "<leader>" })
+
 		-- Project
 		wk.register({
 			p = {
 				name = "Project",
 				s = {
 					function()
-						require 'telescope'.extensions.project.project { layout_strategy = 'vertical', display_type = 'full', order_by =
-						'recent' }
+						require 'telescope'.extensions.project.project { layout_strategy = 'vertical', display_type = 'full', order_by = 'recent' }
 					end,
 					"Show projects" },
 				r = { "<cmd>Telescope projects<cr>", "Show recent projects" },

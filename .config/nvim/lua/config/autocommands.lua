@@ -19,3 +19,4 @@ vim.api.nvim_create_autocmd({ "BufLeave" }, {
 		require("neo-tree.sources.filesystem.commands").refresh(require("neo-tree.sources.manager").get_state("filesystem"))
 	end,
 })
+
