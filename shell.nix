@@ -3,16 +3,34 @@
 let
   nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-24.05";
   pkgs = import nixpkgs { config = {}; overlays = []; };
+
+  pkgsFixed = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e89cf1c932006531f454de7d652163a9a5c86668.tar.gz") {};
 in
 
-pkgs.mkShellNoCC {
-  packages = with pkgs; [
-		zsh
-		kubectl
+pkgs.mkShell {
+
+  buildInputs = with pkgsFixed; [
+  		nodejs_21 # 21.7.2
+			go 				# 1.22.1
+			cargo 		# 1.76.0
+			neovim    # 0.9.5
+			azure-cli # 2.58.0
   ];
 
-	shellHook = ''
+  packages = with pkgs; [
 		zsh
-	'';
+		unzip
+		fzf
+		tmux
+		kubectl
+		govc
+		talosctl
+		lazygit
+		kubeswitch
+  ];
+
+  shellHook = ''
+		tmux new-session -t main
+  '';
 }
 

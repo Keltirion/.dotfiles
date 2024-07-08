@@ -2,7 +2,11 @@
 **/.DS_Store
 
 .config/nvim/plugin
+.config/nvim/lazy-lock.json
+
 .config/zsh/.oh-my-zsh
+.config/zsh/.zcompdump
+.config/zsh/.zsh_history
 
 state.yml
 lazy-lock.json

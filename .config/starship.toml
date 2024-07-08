@@ -3,8 +3,8 @@ palette = 'catppuccin_mocha'
 add_newline = true
 
 format = """
- in $directory$git_branch$git_state$git_status$helm$python$golang $kubernetes  $azure
- $character"""
+ $hostname$nix_shell$directory$git_branch$git_state$git_status$helm$python$golang$kubernetes$azure
+ $jobs$character"""
 
 # right_format = """$azure$kubernetes"""
 
@@ -16,15 +16,25 @@ vimcmd_symbol = '[ ](bold_green)'
 [fill]
 symbol = '-'
 
+[directory]
+format = 'in [$path]($style)[$read_only]($read_only_style) '
+
+[hostname]
+ssh_only = true
+ssh_symbol = ' '
+format = '[$ssh_symbol](bold blue) on [$hostname](bold red) '
+trim_at = '.companyname.com'
+disabled = false
+
 [azure]
 disabled = false
-format = '[$symbol($subscription)]($style)'
+format = ' [$symbol($subscription)]($style) '
 symbol = '  '
 style = 'blue bold'
 
 [kubernetes]
 disabled = false
-format = '[$symbol($cluster)]($style)'
+format = ' [$symbol($cluster)]($style) '
 symbol = '󱃾  '
 style = 'green'
 
@@ -55,3 +65,15 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+[jobs]
+symbol = ' '
+number_threshold = 4
+symbol_threshold = 1
+
+[nix_shell]
+disabled = false
+impure_msg = '[impure shell](bold red)'
+pure_msg = '[pure shell](bold green)'
+unknown_msg = '[unknown shell](bold yellow)'
+format = 'via [󱄅 (\($name\))](bold blue) '
