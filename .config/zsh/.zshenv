@@ -1,21 +1,21 @@
 # Path
-export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/bin/go/bin"
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/bin/go/bin:/opt/homebrew/opt/postgresql@16/bin"
 
 # Editor
 export EDITOR=nvim
 
-#XDG CONFIG
+# XDG CONFIG
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 
-# zsh
-export ZDOTDIR=$HOME/.config/zsh \
+# ZSH
+export ZDOTDIR=$HOME/.config/zsh
 export ZSH=$HOME/.config/zsh/.oh-my-zsh
 export KEEP_ZSHRC=yes
 export HISTFILE=$ZDOTDIR/.zsh_history
 export ZSH_CUSTOM=$HOME/.config/zsh/.oh-my-zsh/custom
-export ZSH_COMPDUMP=$HOME/.cache/zsh/.zcompdump-${HOST}
+export ZSH_COMPDUMP=$XDG_CAHE_HOME/zsh/.zcompdump-${HOST}
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#d787ff,bold'
 
