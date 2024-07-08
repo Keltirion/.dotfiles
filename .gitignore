@@ -1,6 +1,8 @@
 **/packer_compiled.lua
 **/.DS_Store
+
 .config/nvim/plugin
+.config/zsh/.oh-my-zsh
 
 state.yml
 lazy-lock.json
