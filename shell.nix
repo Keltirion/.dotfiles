@@ -10,21 +10,24 @@ in
 pkgs.mkShell {
 
   buildInputs = with pkgsFixed; [
+			# editor
   		nodejs_21 # 21.7.2
 			go 				# 1.22.1
 			cargo 		# 1.76.0
 			neovim    # 0.9.5
+			# cli
 			azure-cli # 2.58.0
   ];
 
   packages = with pkgs; [
+		# shell
 		zsh
+		starship
+		# tools
 		unzip
 		fzf
 		tmux
 		kubectl
-		govc
-		talosctl
 		lazygit
 		kubeswitch
   ];
