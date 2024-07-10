@@ -47,7 +47,7 @@ pkgs.mkShell {
 		KEEP_ZSHRC = "yes";
 		HISTFILE = "$ZDOTDIR/.zsh_history";
 		ZSH_CUSTOM = "$HOME/.config/zsh/.oh-my-zsh/custom";
-		ZSH_COMPDUMP = "$XDG_CAHE_HOME/zsh/.zcompdump-${HOST}";
+		ZSH_COMPDUMP = "$XDG_CAHE_HOME/zsh/.zcompdump-''${HOST}''";
 
   shellHook = ''
 		tmux new-session -t main
