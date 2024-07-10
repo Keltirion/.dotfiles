@@ -33,6 +33,22 @@ pkgs.mkShell {
 		kubeswitch
   ];
 
+		# Editor
+		EDITOR = "nvim";
+
+		# XDG CONFIG
+		XDG_CACHE_HOME = "$HOME/.cache";
+		XDG_CONFIG_HOME = "$HOME/.config";
+		XDG_DATA_HOME = "$HOME/.local/share";
+
+		# ZSH
+		ZDOTDIR = "$HOME/.config/zsh";
+		ZSH = "$HOME/.config/zsh/.oh-my-zsh";
+		KEEP_ZSHRC = "yes";
+		HISTFILE = "$ZDOTDIR/.zsh_history";
+		ZSH_CUSTOM = "$HOME/.config/zsh/.oh-my-zsh/custom";
+		ZSH_COMPDUMP = "$XDG_CAHE_HOME/zsh/.zcompdump-${HOST}";
+
   shellHook = ''
 		tmux new-session -t main
   '';
