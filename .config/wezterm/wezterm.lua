@@ -15,19 +15,30 @@ end
 config.window_close_confirmation = 'NeverPrompt'
 
 -- For example, changing the color scheme:
+-- config.color_scheme_dirs = {"~/.config/wezterm/colors"}
 config.color_scheme = 'Catppuccin Mocha'
 
 -- Apperance
+config.window_background_opacity = 1.0
 config.window_decorations = 'RESIZE'
 
 -- Tab bar
-config.use_fancy_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
 config.tab_max_width = 25
-config.show_tab_index_in_tab_bar = false
+config.show_tab_index_in_tab_bar = true
 config.switch_to_last_active_tab_when_closing_tab = true
 
+-- Cursor
+config.default_cursor_style = "BlinkingBlock"
+config.cursor_blink_rate = 800
+config.cursor_blink_ease_in = "Linear"
+config.cursor_blink_ease_out = "Linear"
+
 local process_icons = {
+	['ssh'] = {
+		{ Text = wezterm.nerdfonts.md_ssh }
+	},
   ['docker'] = {
     { Text = wezterm.nerdfonts.linux_docker },
   },
@@ -38,13 +49,28 @@ local process_icons = {
     { Text = wezterm.nerdfonts.linux_docker },
   },
   ['kubectl'] = {
-    { Text = wezterm.nerdfonts.linux_docker },
+    { Text = wezterm.nerdfonts.md_kubernetes },
+  },
+  ['k9s'] = {
+    { Text = wezterm.nerdfonts.md_kubernetes },
+  },
+  ['terraform'] = {
+    { Text = wezterm.nerdfonts.md_terraform },
+  },
+  ['terragrunt'] = {
+    { Text = wezterm.nerdfonts.md_terraform },
   },
   ['nvim'] = {
-    { Text = wezterm.nerdfonts.custom_vim },
+    { Text = wezterm.nerdfonts.custom_neovim },
+  },
+  ['neovim'] = {
+    { Text = wezterm.nerdfonts.custom_neovim },
   },
   ['vim'] = {
     { Text = wezterm.nerdfonts.dev_vim },
+  },
+  ['lazygit'] = {
+    { Text = wezterm.nerdfonts.cod_git_pull_request },
   },
   ['node'] = {
     { Text = wezterm.nerdfonts.mdi_hexagon },
@@ -97,9 +123,6 @@ end
 
 local function get_process(tab)
   local process_name = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
-  if string.find(process_name, 'kubectl') then
-    process_name = 'kubectl'
-  end
 
   return wezterm.format(
     process_icons[process_name]
@@ -107,9 +130,7 @@ local function get_process(tab)
   )
 end
 
-wezterm.on(
-  'format-tab-title',
-  function(tab, tabs, panes, config, hover, max_width)
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
     local has_unseen_output = false
     if not tab.is_active then
       for _, pane in ipairs(tab.panes) do
@@ -120,7 +141,7 @@ wezterm.on(
       end
     end
 
-    local title = string.format(' %s ~ %s  ', get_process(tab), get_current_working_dir(tab))
+    local title = string.format('%s. test %s ~ %s  ', tab.tab_index + 1, get_process(tab), get_current_working_dir(tab))
 
     if has_unseen_output then
       return {
@@ -148,11 +169,11 @@ wezterm.on('update-right-status', function(window)
 end)
 
 -- Fonts
-config.font = wezterm.font 'CaskaydiaCove Nerd Font'
+config.font = wezterm.font 'JetBrainsMono Nerd Font'
 config.font_size = 14
 
 config.window_frame = {
-	font = wezterm.font 'CaskaydiaCove Nerd Font',
+	font = wezterm.font 'JetBrainsMono Nerd Font',
 	font_size = 14
 
 }
@@ -162,19 +183,19 @@ wezterm.on('update-right-status', function(window, pane)
 end)
 
 -- Keys
-config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.leader = { key = 'Space', mods = 'CTRL|OPT', timeout_milliseconds = 2000 }
 config.keys = {
 	-- Workspaces
 	{
 		key = '0',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'default',
 		},
 	},
 	{
 		key = '1',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'Qualityminds',
 			spawn = {
@@ -184,7 +205,7 @@ config.keys = {
 	},
 	{
 		key = '2',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'Zeiss',
 			spawn = {
@@ -193,8 +214,8 @@ config.keys = {
 		},
 	},
 	{
-		key = '3',
-		mods = 'CMD|CTRL|OPT',
+	key = '3',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'DigitalTeammates',
 			spawn = {
@@ -204,7 +225,7 @@ config.keys = {
 	},
 	{
 		key = '4',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'MunichRe',
 			spawn = {
@@ -214,7 +235,7 @@ config.keys = {
 	},
 	{
 		key = '5',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'Personal',
 			spawn = {
@@ -222,15 +243,19 @@ config.keys = {
 			},
 		},
 	},
-	-- Splits
+	{
+		key = 'w',
+		mods = 'LEADER',
+		action = wezterm.action.CloseCurrentPane { confirm = false },
+	},-- Splits
 	{
 		key = 'x',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
 	},
 	{
 		key = 'v',
-		mods = 'CMD|CTRL|OPT',
+		mods = 'LEADER',
 		action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
 	},
 	{
@@ -253,16 +278,6 @@ config.keys = {
 			name = 'activate_pane',
 			timeout_milliseconds = 5000,
 		},
-	},
-	{
-		key = 'v',
-		mods = 'OPT|CTRL',
-		action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-	},
-	{
-		key = 'h',
-		mods = 'OPT|CTRL',
-		action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
 	},
 	{
 		key = 'd',
