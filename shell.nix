@@ -22,6 +22,7 @@ pkgs.mkShell {
   packages = with pkgs; [
 		# shell
 		zsh
+		oh-my-zsh
 		starship
 		# tools
 		unzip
