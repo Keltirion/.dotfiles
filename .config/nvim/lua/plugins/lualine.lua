@@ -22,12 +22,19 @@ return {
 				globalstatus = true
 			},
 			sections = {
-				lualine_a = {},
+				lualine_a = {
+					{
+						"tabs",
+						cond = function()
+							return #vim.fn.gettabinfo() > 1
+						end,
+					}
+				},
 				lualine_b = {},
 				lualine_c = {},
-				lualine_x = { 'filename','branch', 'diff', 'diagnostics' },
+				lualine_x = { 'filename', 'branch', 'diff', 'diagnostics' },
 				lualine_y = { 'filetype', 'progress', 'fileformat' },
-				lualine_z = { 'mode'}
+				lualine_z = { 'mode' }
 			},
 			inactive_sections = {
 				lualine_a = {},
