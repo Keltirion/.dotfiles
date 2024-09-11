@@ -79,3 +79,6 @@ vim.keymap.set("n", "<S-j>", "<C-d>zz")
 vim.keymap.set("n", "<S-k>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Terminal
+vim.keymap.set("t", "<C-Space>", [[<C-\><C-n>]])

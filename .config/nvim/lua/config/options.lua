@@ -5,6 +5,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
+vim.opt.showtabline = 0
 vim.opt.smartindent = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
