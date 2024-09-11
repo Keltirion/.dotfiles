@@ -32,6 +32,12 @@ return {
 				-- }
 			},
 
+			window = {
+				mappings = {
+					["<space>"] = "none"
+				}
+			},
+
 			filesystem = {
 				filtered_items = {
 					visible = true,
@@ -46,6 +52,7 @@ return {
 					}
 				}
 			}
+
 		})
 	end
 }
