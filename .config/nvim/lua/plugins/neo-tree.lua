@@ -6,6 +6,7 @@ return {
 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 		"MunifTanjim/nui.nvim",
 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		"s1n7ax/nvim-window-picker",
 	},
 	config = function()
 		vim.fn.sign_define("DiagnosticSignError",
@@ -34,11 +35,15 @@ return {
 
 			window = {
 				mappings = {
-					["<space>"] = "none"
+					["<space>"] = "none",
+					["x"] = "open_split",
+					["s"] = "open_vsplit",
+					["c"] = "cut_to_clipboard"
 				}
 			},
 
 			filesystem = {
+				use_libuv_file_watcher = true,
 				filtered_items = {
 					visible = true,
 					hide_dotfiles = false,
@@ -48,9 +53,15 @@ return {
 						"thumbs.db",
 					},
 					never_show = {
-						".git"
+						".terragrunt-cache",
+						".DS_Store",
+						".git",
 					}
-				}
+				},
+				fuzzy_finder_mappings = {
+					["<C-j>"] = "move_cursor_down",
+					["<C-k>"] = "move_cursor_up",
+				},
 			}
 
 		})
