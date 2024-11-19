@@ -39,6 +39,7 @@ return {
 			{ "<leader>bp", "<cmd>bp<cr>",                                                                            desc = "Previous buffer" },
 			{ "<leader>bq", "<cmd>bd<cr>",                                                                            desc = "Close buffer" },
 			{ "<leader>bl", "<cmd>Telescope buffers<cr>",                                                             desc = "List buffers" },
+			{ "<leader>bs", function () require("snipe").open_buffer_menu() end,                                                    desc = "List buffers" },
 
 			-- Diagnostics
 			{ "<leader>d",  group = "Diagnostics", },
@@ -72,13 +73,13 @@ return {
 			{ "<leader>th", "<cmd>tabprevious<cr>",                                   desc = "Previous tab" },
 
 			-- Harpoon
-			{ "<leader>h",  group = "Harpoon" },
-			{ "<leader>h1", function() require("harpoon.ui").nav_file(1) end,         desc = "Swap to first mark" },
-			{ "<leader>h2", function() require("harpoon.ui").nav_file(2) end,         desc = "Swap to second mark" },
-			{ "<leader>h3", function() require("harpoon.ui").nav_file(3) end,         desc = "Swap to second mark" },
-			{ "<leader>h4", function() require("harpoon.ui").nav_file(4) end,         desc = "Swap to second mark" },
-			{ "<leader>hh", function() require("harpoon.mark").add_file() end,        desc = "Mark file" },
-			{ "<leader>u4", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Show ui" },
+			-- { "<leader>h",  group = "Harpoon" },
+			-- { "<leader>h1", function() require("harpoon.ui").nav_file(1) end,         desc = "Swap to first mark" },
+			-- { "<leader>h2", function() require("harpoon.ui").nav_file(2) end,         desc = "Swap to second mark" },
+			-- { "<leader>h3", function() require("harpoon.ui").nav_file(3) end,         desc = "Swap to second mark" },
+			-- { "<leader>h4", function() require("harpoon.ui").nav_file(4) end,         desc = "Swap to second mark" },
+			-- { "<leader>hh", function() require("harpoon.mark").add_file() end,        desc = "Mark file" },
+			-- { "<leader>u4", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Show ui" },
 
 			-- Git
 			{ "<leader>g",  group = "Git" },
