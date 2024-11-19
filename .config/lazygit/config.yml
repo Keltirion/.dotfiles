@@ -1,7 +1,10 @@
 gui:
   # stuff relating to the UI
   windowSize: "normal" # one of 'normal' | 'half' | 'full' default is 'normal'
+
+  showIcons: true
   nerdFontsVersion: "3"
+
   scrollHeight: 2 # how many lines you scroll by
   scrollPastBottom: true # enable scrolling past the bottom
   sidePanelWidth: 0.3333 # number from 0 to 1
@@ -38,7 +41,6 @@ gui:
   showRandomTip: false
   showBottomLine: false # for hiding the bottom information line (unless it has important information to tell you)
   showCommandLog: true
-  showIcons: true
   commandLogSize: 8
   splitDiff: "auto" # one of 'auto' | 'always'
   skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
@@ -111,7 +113,7 @@ keybinding:
     nextBlock: "<right>" # goto the next block / panel
     prevBlock-alt: "h" # goto the previous block / panel
     nextBlock-alt: "l" # goto the next block / panel
-    jumpToBlock: ["1", "2", "3", "4", "5"] # goto the Nth block / panel
+    jumpToBlock: ["`", "1", "2", "3", "4"] # goto the Nth block / panel
     nextMatch: "n"
     prevMatch: "N"
     optionMenu: null # show help menu
@@ -167,7 +169,7 @@ keybinding:
     toggleStagedAll: "a" # stage/unstage all
     viewResetOptions: "D"
     fetch: "f"
-    toggleTreeView: "`"
+    toggleTreeView: ""
     openMergeTool: "M"
     openStatusFilter: "<c-b>"
   branches:
