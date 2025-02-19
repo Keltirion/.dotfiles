@@ -13,7 +13,7 @@ after-login-command = []
 after-startup-command = [
     # JankyBorders has a built-in detection of already running process,
     # so it won't be run twice on AeroSpace restart
-    'exec-and-forget borders active_color=0xffff_ff00 inactive_color=0xff494d64 width=5.0'
+    'exec-and-forget borders active_color=0xffffff00 inactive_color=0xff494d64 width=5.0'
 ]
 
 # Start AeroSpace at login
@@ -99,25 +99,28 @@ outer.right =      5
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-s = 'layout horizontal'
-alt-x = 'layout vertical'
-alt-t = 'layout tiles'
-alt-v = 'layout accordion tiles'
+alt-ctrl-s = 'layout horizontal'
+alt-ctrl-x = 'layout vertical'
+alt-ctrl-t = 'layout accordion tiles'
 
-alt-shift-space = 'layout floating tiling'
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-ctrl-h = 'focus left'
 alt-ctrl-j = 'focus down'
 alt-ctrl-k = 'focus up'
 alt-ctrl-l = 'focus right'
 
-alt-ctrl-x = 'split vertical'
-alt-ctrl-s = 'split horizontal'
+alt-ctrl-f = 'fullscreen'
 
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+alt-ctrl-minus = 'resize smart -100'
+alt-ctrl-equal = 'resize smart +100'
+
+# alt--h = ['join-with left', 'mode main']
+# alt--j = ['join-with down', 'mode main']
+# alt--k = ['join-with up', 'mode main']
+# alt--l = ['join-with right', 'mode main']
+
+alt-shift-ctrl-x = 'split vertical'
+alt-shift-ctrl-s = 'split horizontal'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-ctrl-h = 'move left'
@@ -125,12 +128,7 @@ alt-shift-ctrl-j = 'move down'
 alt-shift-ctrl-k = 'move up'
 alt-shift-ctrl-l = 'move right'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-ctrl-minus = 'resize smart -100'
-alt-ctrl-equal = 'resize smart +100'
-
-alt-shift-o = 'mode floating'
-
+alt-shift-ctrl-space = 'layout floating tiling'
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
@@ -147,25 +145,27 @@ alt-equal = 'workspace 12'
 alt-backspace = 'workspace 13'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = ["move-node-to-workspace 1", "workspace 1"]
-alt-shift-2 = ["move-node-to-workspace 2", "workspace 2"]
-alt-shift-3 = ["move-node-to-workspace 3", "workspace 3"]
-alt-shift-4 = ["move-node-to-workspace 4", "workspace 4"]
-alt-shift-5 = ["move-node-to-workspace 5", "workspace 5"]
-alt-shift-6 = ["move-node-to-workspace 6", "workspace 6"]
-alt-shift-7 = ["move-node-to-workspace 7", "workspace 7"]
-alt-shift-8 = ["move-node-to-workspace 8", "workspace 8"]
-alt-shift-9 = ["move-node-to-workspace 9", "workspace 9"]
-alt-shift-0 = ["move-node-to-workspace 10", "workspace 10"]
-alt-shift-minus = ["move-node-to-workspace 11", "workspace 11"]
-alt-shift-equal = ["move-node-to-workspace 12", "workspace 12"]
-alt-shift-backspace = ["move-node-to-workspace 13", "workspace 13"]
+alt-shift-ctrl-1 = ["move-node-to-workspace 1", "workspace 1"]
+alt-shift-ctrl-2 = ["move-node-to-workspace 2", "workspace 2"]
+alt-shift-ctrl-3 = ["move-node-to-workspace 3", "workspace 3"]
+alt-shift-ctrl-4 = ["move-node-to-workspace 4", "workspace 4"]
+alt-shift-ctrl-5 = ["move-node-to-workspace 5", "workspace 5"]
+alt-shift-ctrl-6 = ["move-node-to-workspace 6", "workspace 6"]
+alt-shift-ctrl-7 = ["move-node-to-workspace 7", "workspace 7"]
+alt-shift-ctrl-8 = ["move-node-to-workspace 8", "workspace 8"]
+alt-shift-ctrl-9 = ["move-node-to-workspace 9", "workspace 9"]
+alt-shift-ctrl-0 = ["move-node-to-workspace 10", "workspace 10"]
+alt-shift-ctrl-minus = ["move-node-to-workspace 11", "workspace 11"]
+alt-shift-ctrl-equal = ["move-node-to-workspace 12", "workspace 12"]
+alt-shift-ctrl-backspace = ["move-node-to-workspace 13", "workspace 13"]
 
+# See: https://nikitabobko.github.io/AeroSpace/commands#resize
+alt-shift-o = 'mode floating'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-fort
-alt-tab = 'workspace-back-and-forth'
+alt-tab = 'focus-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-shift-tab = 'workspace-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
@@ -219,6 +219,7 @@ run = 'move-node-to-workspace 0'
 
 # -----------------------------------------------------------------------
 # See: https://nikitabobko.github.io/AeroSpace/goodness#popular-apps-ids
+# mdls -name kMDItemCFBundleIdentifier -r 'app'
 # Autofloating 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
@@ -242,5 +243,10 @@ run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'org.whispersystems.signal-desktop'
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'cc.ffitch.shottr'
 check-further-callbacks = true
 run = ['layout floating']
