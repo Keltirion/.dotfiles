@@ -34,6 +34,7 @@ return {
 				'Outline',
 				'spectre_panel',
 				'toggleterm',
+				'term',
 				'qf',
 			}
 		})

@@ -15,7 +15,8 @@ return {
 				"lua",
 				"bash",
 				"markdown",
-				"markdown_inline"
+				"markdown_inline",
+				"helm"
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)

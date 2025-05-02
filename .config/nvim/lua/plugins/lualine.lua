@@ -17,19 +17,12 @@ return {
 					'packer',
 					'NvimTree'
 				},
-				section_separators = { left = ' ', right = ' ' },
+				section_separators = { left = '', right = ' ' },
 				component_separators = { left = '', right = '' },
 				globalstatus = true
 			},
 			sections = {
-				lualine_a = {
-					{
-						"tabs",
-						cond = function()
-							return #vim.fn.gettabinfo() > 1
-						end,
-					}
-				},
+				lualine_a = { { 'tabs', mode = 2 } },
 				lualine_b = {},
 				lualine_c = {},
 				lualine_x = { 'filename', 'branch', 'diff', 'diagnostics' },

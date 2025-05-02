@@ -19,8 +19,9 @@ return {
 			{ text = "󰌵", texthl = "DiagnosticSignHint" })
 
 		require("neo-tree").setup({
-			close_if_last_window = true,
+			close_if_last_window = false,
 			hide_root_node = true,
+			git_status_async = false,
 
 			source_selector = {
 				winbar = false,
@@ -36,13 +37,16 @@ return {
 			window = {
 				mappings = {
 					["<space>"] = "none",
+					["i"] = "none",
+					["s"] = "none",
 					["x"] = "open_split",
-					["s"] = "open_vsplit",
+					["v"] = "open_vsplit",
 					["c"] = "cut_to_clipboard"
 				}
 			},
 
 			filesystem = {
+				follow_current_file = { enabled = true },
 				use_libuv_file_watcher = true,
 				filtered_items = {
 					visible = true,

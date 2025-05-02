@@ -28,8 +28,10 @@ return {
 					-- override cmp documentation with Noice (needs the other options to work)
 					["cmp.entry.get_documentation"] = true,
 				}
+			},
+			presets = {
+				lsp_doc_border = true
 			}
 		})
 	end
-
 }

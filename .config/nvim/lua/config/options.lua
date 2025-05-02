@@ -19,14 +19,13 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = 'yes'
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
-vim.lsp.set_log_level("error")
+vim.g.copilot_no_tab_map = true
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "hcl",
@@ -40,7 +39,7 @@ vim.cmd(
 	[[augroup highlight_yank autocmd! au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200}) augroup END]])
 
 -- filetypes
---
+
 -- ansible
 vim.cmd([[autocmd BufRead,BufNewFile */ansible-playbooks/* set filetype=yaml.ansible]])
 

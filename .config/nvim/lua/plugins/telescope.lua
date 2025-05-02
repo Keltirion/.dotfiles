@@ -20,15 +20,10 @@ return {
 						["q"] = actions.close,
 					},
 					i = {
-						["<C-q>"] = actions.close
+						["<C-q>"] = actions.close,
 					}
 				},
 			}
 		}
-
-		vim.keymap.set('n', '<leader>ps', function()
-			builtin.grep_string({ search = vim.fn.input("grep > ") });
-		end)
-
 	end
 }
