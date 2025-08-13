@@ -24,7 +24,7 @@ config.window_decorations = 'RESIZE'
 
 -- Tab bar
 config.use_fancy_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.tab_max_width = 25
 config.show_tab_index_in_tab_bar = true
 config.switch_to_last_active_tab_when_closing_tab = true
@@ -34,6 +34,9 @@ config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_rate = 800
 config.cursor_blink_ease_in = "Linear"
 config.cursor_blink_ease_out = "Linear"
+
+config.max_fps = 240
+config.animation_fps = 240
 
 local process_icons = {
 	['ssh'] = { {
@@ -122,10 +125,14 @@ end
 
 local function get_process(tab)
 	local process_name = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
+	local process_name_string = string.format('[%s]', process_name)
 
-	return wezterm.format(process_icons[process_name] or { {
-		Text = string.format('[%s]', process_name)
-	} })
+	local icon = process_icons[process_name]
+
+	return {
+		icon = icon[1].Text,
+		process_name = process_name_string
+	}
 end
 
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
@@ -140,16 +147,20 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 	end
 
 	local tab_index = tab.tab_index + 1
-	local tab_process = get_process(tab)
+	local result = get_process(tab)
 	local tab_cwd
 
-	if tab_process == process_icons['ssh'] then
-		tab_cwd = wezterm.hostname()
+	if result.icon == nil or result.process_name == nil then
+		tab_cwd = "No process found"
+	end
+
+	if result.process_name == '[ssh]' then
+		tab_cwd = 'on remote'
 	else
 		tab_cwd = get_current_working_dir(tab)
 	end
 
-	local title = string.format('%s. %s ~ %s  ', tab_index, tab_process, tab_cwd)
+	local title = string.format('%s. %s ~ %s  ', tab_index, result.icon, tab_cwd)
 
 	if has_unseen_output then
 		return { {
@@ -165,6 +176,25 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 		Text = title
 	} }
 end)
+
+-- wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
+-- 	local zoomed = ''
+-- 	if tab.active_pane.is_zoomed then
+-- 		zoomed = '[Z] '
+-- 	end
+--
+-- 	local index = ''
+-- 	if #tabs > 1 then
+-- 		index = string.format(' %d/%d ', tab.tab_index + 1, #tabs)
+-- 	end
+--
+-- 	local tab_cwd = get_current_working_dir(tab)
+-- 	local _, fallback = get_process(tab)
+--
+-- 	local title = string.format('%s - %s -> %s', wezterm.mux.get_active_workspace(), tab_cwd, wezterm.format(fallback))
+--
+-- 	return zoomed .. title .. index
+-- end)
 
 wezterm.on('update-right-status', function(window)
 	if not window:get_dimensions().is_full_screen then
@@ -183,11 +213,11 @@ end)
 
 -- Fonts
 config.font = wezterm.font 'JetBrainsMono Nerd Font'
-config.font_size = 14
+config.font_size = 15
 
 config.window_frame = {
 	font = wezterm.font 'JetBrainsMono Nerd Font',
-	font_size = 14
+	font_size = 15
 }
 
 wezterm.on('update-right-status', function(window, pane)
@@ -197,85 +227,92 @@ end)
 -- Keys
 config.leader = {
 	key = 'Space',
-	mods = 'CTRL|OPT',
+	mods = 'CTRL',
 	timeout_milliseconds = 2000
 }
+
+config.ssh_domains = {
+	{
+		name = 'zeiss.com',
+		remote_address = 'llonczynski',
+		username = 'llonczynski'
+	}
+}
+
 config.keys = { -- Workspaces
 	{
-		key = '0',
+		key = '9',
 		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
 			name = 'default'
 		}
-	}, {
-	key = '1',
-	mods = 'LEADER',
-	action = act.SwitchToWorkspace {
-		name = 'Qualityminds',
-		spawn = {
-			cwd = '/Users/lech/Repositories/Qualityminds/'
+	},
+	{
+		key = '1',
+		mods = 'LEADER',
+		action = act.SwitchToWorkspace {
+			name = 'Zeiss',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Zeiss/'
+			}
 		}
-	}
-}, {
-	key = '2',
-	mods = 'LEADER',
-	action = act.SwitchToWorkspace {
-		name = 'Zeiss',
-		spawn = {
-			cwd = '/Users/lech/Repositories/Zeiss/'
+	},
+	{
+		key = '2',
+		mods = 'LEADER',
+		action = act.SwitchToWorkspace {
+			name = 'Phlex',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Phlex/'
+			}
 		}
-	}
-}, {
-	key = '3',
-	mods = 'LEADER',
-	action = act.SwitchToWorkspace {
-		name = 'DigitalTeammates',
-		spawn = {
-			cwd = '/Users/lech/Repositories/DigitalTeammates/'
+	},
+	{
+		key = '3',
+		mods = 'LEADER',
+		action = act.SwitchToWorkspace {
+			name = 'Softwaremind',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Softwaremind/'
+			}
 		}
-	}
-}, {
-	key = '4',
-	mods = 'LEADER',
-	action = act.SwitchToWorkspace {
-		name = 'MunichRe',
-		spawn = {
-			cwd = '/Users/lech/Repositories/MunichRe/'
+	},
+	{
+		key = '0',
+		mods = 'LEADER',
+		action = act.SwitchToWorkspace {
+			name = 'Personal',
+			spawn = {
+				cwd = '/Users/lech/Repositories/Personal/'
+			}
 		}
-	}
-}, {
-	key = '5',
-	mods = 'LEADER',
-	action = act.SwitchToWorkspace {
-		name = 'Personal',
-		spawn = {
-			cwd = '/Users/lech/Repositories/Personal/'
+	},
+	{
+		key = 'w',
+		mods = 'LEADER',
+		action = wezterm.action.CloseCurrentPane {
+			confirm = false
 		}
-	}
-}, {
-	key = 'w',
-	mods = 'LEADER',
-	action = wezterm.action.CloseCurrentPane {
-		confirm = false
-	}
-}, -- Splits
+	}, -- Splits
 	{
 		key = 'x',
 		mods = 'LEADER',
 		action = wezterm.action.SplitVertical {
 			domain = 'CurrentPaneDomain'
 		}
+	},
+	{
+		key = 's',
+		mods = 'LEADER',
+		action = wezterm.action.SplitHorizontal {
+			domain = 'CurrentPaneDomain'
+		}
+	}, -- Rest
+	{
+		key = 'f',
+		mods = 'CTRL|CMD',
+		action = wezterm.action.ToggleFullScreen
 	}, {
-	key = 'v',
-	mods = 'LEADER',
-	action = wezterm.action.SplitHorizontal {
-		domain = 'CurrentPaneDomain'
-	}
-}, {
-	key = 'f',
-	mods = 'CTRL|CMD',
-	action = wezterm.action.ToggleFullScreen
-}, {
 	key = 'r',
 	mods = 'LEADER',
 	action = act.ActivateKeyTable {
@@ -359,7 +396,7 @@ config.key_tables = {
 	}, {
 		key = 'j',
 		action = act.AdjustPaneSize { 'Down', 1 }
-	},   -- Cancel the mode by pressing escape
+	}, -- Cancel the mode by pressing escape
 		{
 			key = 'Escape',
 			action = 'PopKeyTable'
