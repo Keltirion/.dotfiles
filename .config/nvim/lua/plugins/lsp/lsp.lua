@@ -73,7 +73,21 @@ return {
 		})
 
 		require("lspconfig").lua_ls.setup {}
-		require("lspconfig").dockerls.setup {}
+		require("lspconfig").dockerls.setup({
+			on_attach = on_attach,
+			settings = {
+				docker = {
+					filetypes = {
+						"dockerfile",
+						"containerfile",
+					},
+					root_markers = {
+						"Dockerfile",
+						"Containerfile",
+					}
+				}
+			}
+		})
 		require("lspconfig").docker_compose_language_service.setup {}
 		require("lspconfig").jsonls.setup {}
 		require("lspconfig").helm_ls.setup({
@@ -94,8 +108,7 @@ return {
 							validation = {
 								enabled = false
 							},
-							schemas = {
-							},
+							schemas = {},
 						}
 					}
 				}
@@ -113,20 +126,35 @@ return {
 				}
 			}
 		})
+		require("lspconfig").pyright.setup({
+			on_attach = on_attach,
+			settings = {
+				python = {
+					venvPath = ".",
+					venv = ".venv",
+					analysis = {
+						autoSearchPaths = true,
+						diagnosticMode = "workspace",
+						useLibraryCodeForTypes = true,
+						typeCheckingMode = "basic",
+					}
+				}
+			}
+		})
 		require("lspconfig").ansiblels.setup {
 			settings = {
 				ansible = {
 					ansible = {
-						path = ".ansible-venv/bin/ansible",
+						path = ".venv/bin/ansible",
 					},
 					python = {
-						interpreterPath = ".ansible-venv/bin/python3",
-						python = ".ansible-venv/bin/python3",
+						interpreterPath = ".venv/bin/python3",
+						python = ".venv/bin/python3",
 					},
 					validation = {
 						enabled = true,
 						lint = {
-							path = ".ansible-venv/bin/ansible-lint",
+							path = ".venv/bin/ansible-lint",
 							enabled = true,
 						}
 					}
@@ -147,6 +175,10 @@ return {
 						["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "**/*cloud-init*",
 						["https://json.schemastore.org/chart.json"] = "**/Chart.y*l",
 						["https://json.schemastore.org/chart-lock.json"] = "**/Chart.lock",
+						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+							"**/azure-pipeline*.y*l",
+							"*azure-pipeline*.y*l",
+						},
 					},
 				},
 			}
@@ -171,21 +203,21 @@ return {
 				},
 			},
 		})
-		require("lspconfig").azure_pipelines_ls.setup({
-			on_attach = on_attach,
-			filetypes = {
-				"yaml.azure-pipelines"
-			},
-			settings = {
-				yaml = {
-					schemas = {
-						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
-							"*/azure-pipeline*.y*l",
-							"*/*pipeline*/*",
-						},
-					},
-				},
-			},
-		})
+		-- require("lspconfig").azure_pipelines_ls.setup({
+		-- 	on_attach = on_attach,
+		-- 	filetypes = {
+		-- 		"yaml.azure-pipelines"
+		-- 	},
+		-- 	settings = {
+		-- 		yaml = {
+		-- 			schemas = {
+		-- 				["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+		-- 					"*/azure-pipeline*.y*l",
+		-- 					"*/*pipeline*/*",
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		-- })
 	end
 }

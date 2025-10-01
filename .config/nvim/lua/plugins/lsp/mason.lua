@@ -24,6 +24,7 @@ return {
 					"ansiblels",
 					"terraformls",
 					"gopls",
+					"pyright",
 					"dockerls",
 					"docker_compose_language_service",
 					"azure_pipelines_ls",
