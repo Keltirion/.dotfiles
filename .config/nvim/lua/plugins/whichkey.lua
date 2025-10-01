@@ -63,6 +63,10 @@ return {
 			{ "<leader>ff", "<cmd>lua vim.lsp.buf.format { async = true }<CR>",                                       desc = "Format file",                          mode = "n" },
 			{ "<leader>fs", function() require("telescope.builtin").find_files({ layout_strategy = 'vertical' }) end, desc = "Search for file in project",           mode = "n" },
 
+			-- AI
+			{ "<leader>a",  group = "AI" },
+			{ "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>",                                                      desc = "Chat with AI",                         mode = "n" },
+
 			-- Buffers
 			{ "<leader>b",  group = "Buffers" },
 			{ "<leader>bn", "<cmd>bn<cr>",                                                                            desc = "Next buffer" },

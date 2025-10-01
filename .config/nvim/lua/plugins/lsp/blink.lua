@@ -52,16 +52,10 @@ return {
 		},
 
 		sources = {
-			default = { 'avante', 'snippets', 'lsp', 'path', 'buffer' },
-			providers = {
-				avante = {
-					module = 'blink-cmp-avante',
-					name = 'Avante',
-					opts = {
-						-- options for blink-cmp-avante
-					}
-				}
+			per_filetype = {
+				codecompanion = { "codecompanion" },
 			},
+			default = { 'snippets', 'lsp', 'path', 'buffer' },
 		},
 	},
 }

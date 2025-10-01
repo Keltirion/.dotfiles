@@ -36,11 +36,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
--- Copilot
-vim.keymap.set('i', '<S-CR>', 'copilot#Accept("\\<CR>")', {
-	expr = true,
-	replace_keycodes = false
-})
 
 -- Tabs
 vim.keymap.set("n", "<leader-1>", "1gt")

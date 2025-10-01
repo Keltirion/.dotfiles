@@ -1,4 +1,4 @@
-vim.opt.fillchars = { eob = " "}
+vim.opt.fillchars = { eob = " " }
 vim.opt.mouse = "a"
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -25,11 +25,11 @@ vim.opt.updatetime = 50
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-vim.g.copilot_no_tab_map = true
+
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "hcl",
-	callback = function ()
+	callback = function()
 		vim.opt.commentstring = "#%s"
 	end
 })
@@ -41,7 +41,8 @@ vim.cmd(
 -- filetypes
 
 -- ansible
-vim.cmd([[autocmd BufRead,BufNewFile */ansible-playbooks/* set filetype=yaml.ansible]])
+vim.cmd([[autocmd BufRead,BufNewFile **/ansible-playbooks/**.yaml set filetype=yaml.ansible]])
+vim.cmd([[autocmd BufRead,BufNewFile **/ansible/**.yaml set filetype=yaml.ansible]])
 
 -- hcl
 vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
@@ -54,8 +55,10 @@ vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
 vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
 
 -- docker
-vim.cmd([[autocmd BufRead,BufNewFile */docker-compose* set filetype=yaml.docker-compose]])
+vim.cmd([[autocmd BufRead,BufNewFile **/docker-compose* set filetype=yaml.docker-compose]])
+vim.cmd([[autocmd BufRead,BufNewFile **/Containerfile set filetype=containerfile]])
+vim.cmd([[autocmd BufRead,BufNewFile **/Dockerfile set filetype=dockerfile]])
 
 -- azure-pipelines
-vim.cmd([[autocmd BufRead,BufNewFile */*azure-pipeline* set filetype=yaml.azure-pipelines]])
-vim.cmd([[autocmd BufRead,BufNewFile */pipeline*/* set filetype=yaml.azure-pipelines]])
+-- vim.cmd([[autocmd BufRead,BufNewFile **/*azure-pipeline*.y*l set filetype=yaml.azure-pipelines]])
+-- vim.cmd([[autocmd BufRead,BufNewFile *azure-pipeline*.y*l set filetype=yaml.azure-pipelines]])
