@@ -1,6 +1,6 @@
 return {
 	'akinsho/toggleterm.nvim',
-	tag = '*',
+	tag = 'v2.13.1',
 	config = function ()
 		require('toggleterm').setup {
 			shade_terminals = true,
