@@ -17,7 +17,7 @@ after-startup-command = [
 ]
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = false
@@ -99,9 +99,14 @@ outer.right =      5
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-ctrl-s = 'layout horizontal'
-alt-ctrl-x = 'layout vertical'
-alt-ctrl-t = 'layout accordion tiles'
+alt-ctrl-s = 'layout tiles horizontal'
+alt-ctrl-x = 'layout tiles vertical'
+alt-ctrl-t = 'layout accordion horizontal vertical'
+
+alt-ctrl-shift-space = 'layout floating tiling'
+
+alt-shift-ctrl-x = 'split vertical'
+alt-shift-ctrl-s = 'split horizontal'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-ctrl-h = 'focus left'
@@ -119,17 +124,14 @@ alt-ctrl-equal = 'resize smart +100'
 # alt--k = ['join-with up', 'mode main']
 # alt--l = ['join-with right', 'mode main']
 
-alt-shift-ctrl-x = 'split vertical'
-alt-shift-ctrl-s = 'split horizontal'
-
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-ctrl-h = 'move left'
 alt-shift-ctrl-j = 'move down'
 alt-shift-ctrl-k = 'move up'
 alt-shift-ctrl-l = 'move right'
 
-alt-shift-ctrl-space = 'layout floating tiling'
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+# main screen
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
@@ -140,11 +142,17 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
+# left screen
 alt-minus = 'workspace 11'
-alt-equal = 'workspace 12'
-alt-backspace = 'workspace 13'
+alt-leftSquareBracket = 'workspace 12'
+# right screen
+alt-equal = 'workspace 13'
+alt-rightSquareBracket = 'workspace 14'
+# sidecar or other
+alt-backspace = 'workspace 15'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+# main screen
 alt-shift-ctrl-1 = ["move-node-to-workspace 1", "workspace 1"]
 alt-shift-ctrl-2 = ["move-node-to-workspace 2", "workspace 2"]
 alt-shift-ctrl-3 = ["move-node-to-workspace 3", "workspace 3"]
@@ -155,9 +163,14 @@ alt-shift-ctrl-7 = ["move-node-to-workspace 7", "workspace 7"]
 alt-shift-ctrl-8 = ["move-node-to-workspace 8", "workspace 8"]
 alt-shift-ctrl-9 = ["move-node-to-workspace 9", "workspace 9"]
 alt-shift-ctrl-0 = ["move-node-to-workspace 10", "workspace 10"]
+# left screen
 alt-shift-ctrl-minus = ["move-node-to-workspace 11", "workspace 11"]
-alt-shift-ctrl-equal = ["move-node-to-workspace 12", "workspace 12"]
-alt-shift-ctrl-backspace = ["move-node-to-workspace 13", "workspace 13"]
+alt-shift-ctrl-leftSquareBracket = ["move-node-to-workspace 12", "workspace 12"]
+# right screen
+alt-shift-ctrl-equal = ["move-node-to-workspace 13", "workspace 13"]
+alt-shift-ctrl-rightSquareBracket = ["move-node-to-workspace 14", "workspace 14"]
+# sidecar or other
+alt-shift-ctrl-backspace = ["move-node-to-workspace 15", "workspace 15"]
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 alt-shift-o = 'mode floating'
@@ -181,9 +194,14 @@ alt-shift-semicolon = 'mode service'
 8 = ['LG ULTRAWIDE', 'DELL S3221QS', 'Built-in Retina Display']
 9 = ['LG ULTRAWIDE', 'DELL S3221QS', 'Built-in Retina Display']
 10 = ['LG ULTRAWIDE', 'DELL S3221QS', 'Built-in Retina Display']
-11 = ['^LG SDQHD \(2\).*', 'Built-in Retina Display']
+
+11 = ['^LG SDQHD \(1\).*', 'Built-in Retina Display']
 12 = ['^LG SDQHD \(1\).*', 'Built-in Retina Display']
-13 = ['Sidecar Display.*', 'Built-in Retina Display', 'main']
+
+13 = ['^LG SDQHD \(2\).*', 'Built-in Retina Display']
+14 = ['^LG SDQHD \(2\).*', 'Built-in Retina Display']
+
+15 = ['Sidecar Display.*', 'DELL.*', 'Built-in Retina Display', 'main']
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -205,13 +223,51 @@ equal = 'resize smart +50'
 
 # -----------------------------------------------------------------------
 # Apps assignment
+##### 1
+[[on-window-detected]]
+if.app-id = 'com.microsoft.AzureVpnMac'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.att.ATTGNCMac'
+run = 'move-node-to-workspace 1'
+
+##### 2
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari.WebApp.3CCE0A2A-9A72-46D6-B405-C592D481C594'
+run = 'move-node-to-workspace 2'
+
+##### 3
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace 3'
 
+##### 4
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'org.jkiss.dbeaver.core.product'
+run = 'move-node-to-workspace 4'
+
+##### 5
+[[on-window-detected]]
+if.app-id = 'com.citrix.receiver.icaviewer.mac'
+run = 'move-node-to-workspace 5'
+
+##### 9
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+if.app-id = 'com.rambox'
+run = 'move-node-to-workspace 10'
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
@@ -220,7 +276,7 @@ run = 'move-node-to-workspace 0'
 # -----------------------------------------------------------------------
 # See: https://nikitabobko.github.io/AeroSpace/goodness#popular-apps-ids
 # mdls -name kMDItemCFBundleIdentifier -r 'app'
-# Autofloating 
+# Autofloating
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 check-further-callbacks = true
@@ -228,6 +284,16 @@ run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.AzureVpnMac'
 check-further-callbacks = true
 run = ['layout floating']
 
@@ -250,3 +316,13 @@ run = ['layout floating']
 if.app-id = 'cc.ffitch.shottr'
 check-further-callbacks = true
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.citrix.CitrixReceiverLauncher'
+check-further-callbacks = true
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'com.citrix.receiver.icaviewer.mac'
+check-further-callbacks = true
+run = ['layout tiling']
