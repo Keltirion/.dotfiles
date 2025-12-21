@@ -261,9 +261,9 @@ config.keys = { -- Workspaces
 		key = '2',
 		mods = 'LEADER',
 		action = act.SwitchToWorkspace {
-			name = 'Phlex',
+			name = 'Xebia',
 			spawn = {
-				cwd = '/Users/lech/Repositories/Phlex/'
+				cwd = '/Users/lech/Repositories/Xebia/'
 			}
 		}
 	},
@@ -308,6 +308,11 @@ config.keys = { -- Workspaces
 			domain = 'CurrentPaneDomain'
 		}
 	}, -- Rest
+	{
+    key = 'r',
+    mods = 'CTRL|CMD',
+    action = wezterm.action.ReloadConfiguration,
+  },
 	{
 		key = 'f',
 		mods = 'CTRL|CMD',
@@ -427,5 +432,14 @@ config.key_tables = {
 		action = act.ActivatePaneDirection 'Down'
 	} }
 }
+
+for i = 1, 8 do
+  -- CTRL+ALT + number to move to that position
+  table.insert(config.keys, {
+    key = tostring(i),
+    mods = 'CTRL|OPT|CMD',
+    action = wezterm.action.MoveTab(i - 1),
+  })
+end
 
 return config
