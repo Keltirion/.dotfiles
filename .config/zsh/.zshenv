@@ -1,6 +1,3 @@
-# Path
-export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/bin/go/bin:/opt/homebrew/opt/postgresql@16/bin"
-
 # Editor
 export EDITOR=nvim
 

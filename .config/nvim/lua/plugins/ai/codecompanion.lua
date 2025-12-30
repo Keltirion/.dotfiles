@@ -10,7 +10,7 @@ return {
 			strategies = {
 				chat = {
 					adapter = "gemini",
-					model = "gemini-2.5-pro",
+					model = "gemini-3-pro-preview",
 				},
 				inline = {
 					adapter = "gemini",
@@ -22,13 +22,15 @@ return {
 				}
 			},
 			adapters = {
-				gemini = function()
-					return require("codecompanion.adapters").extend("gemini", {
-						env = {
-							api_key = "cmd:opsearch -n 'Gemini API Key'",
-						}
-					})
-				end,
+				http = {
+					gemini = function()
+						return require("codecompanion.adapters").extend("gemini", {
+							env = {
+								api_key = "cmd:opsearch -n 'Gemini API Key'",
+							}
+						})
+					end,
+				}
 			},
 			display = {
 				chat = {

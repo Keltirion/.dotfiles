@@ -1,4 +1,6 @@
 # Aliasses
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/bin/go/bin:$HOME/.golib/bin:$PATH"
+
 alias shr="source ~/.config/zsh/.zshrc"
 alias tf="terraform"
 alias tg="terragrunt"

@@ -8,6 +8,8 @@ return {
 		local git = require("gitsigns")
 		local dap = require("dap")
 		local custom_terminals = require("terminals")
+		
+		local snacks = require("snacks")
 
 		local hydra = function(keys)
 			require("which-key").show({
@@ -77,8 +79,32 @@ return {
 
 			-- Explorer
 			{ "<leader>e",  group = "Explorer" },
-			{ "<leader>et", "<cmd>Neotree focus<cr>",                                                                 desc = "Show/focus filetree" },
-			{ "<leader>eq", "<cmd>Neotree close<cr>",                                                                 desc = "Close explorer" },
+			{ "<leader>eq", 
+				function() 
+					local picker = Snacks.picker.get({ source = "explorer" })[1]
+
+					if picker then
+						picker:close()
+					end
+				end,                                                                 desc = "Close explorer" },
+			{ "<leader>et", 
+				function()
+					local picker = Snacks.picker.get({ source = "explorer" })[1]
+
+					if picker then
+						picker:focus()
+					else
+						Snacks.explorer()
+					end
+				end, 
+				desc = "Focus/Open Explorer" 
+			},
+			-- { "<leader>er", 
+			-- 	function()
+			-- 		Snacks.explorer.reveal()
+			-- 	end,
+			-- 	desc = "Reveal current file in Explorer"
+			-- },
 			{
 				"<leader>ef",
 				function()
